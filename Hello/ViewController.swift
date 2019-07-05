@@ -14,7 +14,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
-
+    
+    @objc(name:dir:) static func name(path: String, dir: String) -> Int8 {
+        print(path, dir)
+        return 0
+    }
+    
 }
 

@@ -12,6 +12,30 @@
 		CECD15C222CF6430007D3497 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECD15C022CF6430007D3497 /* Main.storyboard */; };
 		CECD15C422CF6431007D3497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CECD15C322CF6431007D3497 /* Assets.xcassets */; };
 		CECD15C722CF6431007D3497 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECD15C522CF6431007D3497 /* LaunchScreen.storyboard */; };
+		CECD15D122CF651F007D3497 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15CF22CF651F007D3497 /* AVFoundation.framework */; };
+		CECD15D222CF651F007D3497 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15D022CF651F007D3497 /* AudioToolbox.framework */; };
+		CECD15E822CF6534007D3497 /* libpjsdp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15D322CF6533007D3497 /* libpjsdp.a */; };
+		CECD15E922CF6534007D3497 /* libsrtp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15D422CF6533007D3497 /* libsrtp.a */; };
+		CECD15EA22CF6534007D3497 /* libresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15D522CF6533007D3497 /* libresample.a */; };
+		CECD15EB22CF6534007D3497 /* libpjsua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15D622CF6533007D3497 /* libpjsua.a */; };
+		CECD15EC22CF6534007D3497 /* libg7221codec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15D722CF6533007D3497 /* libg7221codec.a */; };
+		CECD15ED22CF6534007D3497 /* libgsmcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15D822CF6533007D3497 /* libgsmcodec.a */; };
+		CECD15EE22CF6534007D3497 /* libwebrtc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15D922CF6533007D3497 /* libwebrtc.a */; };
+		CECD15EF22CF6534007D3497 /* libpjmedia-audiodev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15DA22CF6534007D3497 /* libpjmedia-audiodev.a */; };
+		CECD15F022CF6534007D3497 /* libspeex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15DB22CF6534007D3497 /* libspeex.a */; };
+		CECD15F122CF6534007D3497 /* libyuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15DC22CF6534007D3497 /* libyuv.a */; };
+		CECD15F222CF6534007D3497 /* libpjmedia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15DD22CF6534007D3497 /* libpjmedia.a */; };
+		CECD15F322CF6534007D3497 /* libpjnath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15DE22CF6534007D3497 /* libpjnath.a */; };
+		CECD15F422CF6534007D3497 /* libpjmedia-videodev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15DF22CF6534007D3497 /* libpjmedia-videodev.a */; };
+		CECD15F522CF6534007D3497 /* libpj.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15E022CF6534007D3497 /* libpj.a */; };
+		CECD15F622CF6534007D3497 /* libpjsip-ua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15E122CF6534007D3497 /* libpjsip-ua.a */; };
+		CECD15F722CF6534007D3497 /* libpjsua2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15E222CF6534007D3497 /* libpjsua2.a */; };
+		CECD15F822CF6534007D3497 /* libilbccodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15E322CF6534007D3497 /* libilbccodec.a */; };
+		CECD15F922CF6534007D3497 /* libpjlib-util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15E422CF6534007D3497 /* libpjlib-util.a */; };
+		CECD15FA22CF6534007D3497 /* libpjsip-simple.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15E522CF6534007D3497 /* libpjsip-simple.a */; };
+		CECD15FB22CF6534007D3497 /* libpjsip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15E622CF6534007D3497 /* libpjsip.a */; };
+		CECD15FC22CF6534007D3497 /* libpjmedia-codec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15E722CF6534007D3497 /* libpjmedia-codec.a */; };
+		CECD15FF22CF65DF007D3497 /* demo.m in Sources */ = {isa = PBXBuildFile; fileRef = CECD15FE22CF65DF007D3497 /* demo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +46,32 @@
 		CECD15C322CF6431007D3497 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CECD15C622CF6431007D3497 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CECD15C822CF6431007D3497 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CECD15CF22CF651F007D3497 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		CECD15D022CF651F007D3497 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		CECD15D322CF6533007D3497 /* libpjsdp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpjsdp.a; path = pjsip/lib/libpjsdp.a; sourceTree = "<group>"; };
+		CECD15D422CF6533007D3497 /* libsrtp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsrtp.a; path = pjsip/lib/libsrtp.a; sourceTree = "<group>"; };
+		CECD15D522CF6533007D3497 /* libresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libresample.a; path = pjsip/lib/libresample.a; sourceTree = "<group>"; };
+		CECD15D622CF6533007D3497 /* libpjsua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpjsua.a; path = pjsip/lib/libpjsua.a; sourceTree = "<group>"; };
+		CECD15D722CF6533007D3497 /* libg7221codec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libg7221codec.a; path = pjsip/lib/libg7221codec.a; sourceTree = "<group>"; };
+		CECD15D822CF6533007D3497 /* libgsmcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgsmcodec.a; path = pjsip/lib/libgsmcodec.a; sourceTree = "<group>"; };
+		CECD15D922CF6533007D3497 /* libwebrtc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebrtc.a; path = pjsip/lib/libwebrtc.a; sourceTree = "<group>"; };
+		CECD15DA22CF6534007D3497 /* libpjmedia-audiodev.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjmedia-audiodev.a"; path = "pjsip/lib/libpjmedia-audiodev.a"; sourceTree = "<group>"; };
+		CECD15DB22CF6534007D3497 /* libspeex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libspeex.a; path = pjsip/lib/libspeex.a; sourceTree = "<group>"; };
+		CECD15DC22CF6534007D3497 /* libyuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libyuv.a; path = pjsip/lib/libyuv.a; sourceTree = "<group>"; };
+		CECD15DD22CF6534007D3497 /* libpjmedia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpjmedia.a; path = pjsip/lib/libpjmedia.a; sourceTree = "<group>"; };
+		CECD15DE22CF6534007D3497 /* libpjnath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpjnath.a; path = pjsip/lib/libpjnath.a; sourceTree = "<group>"; };
+		CECD15DF22CF6534007D3497 /* libpjmedia-videodev.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjmedia-videodev.a"; path = "pjsip/lib/libpjmedia-videodev.a"; sourceTree = "<group>"; };
+		CECD15E022CF6534007D3497 /* libpj.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpj.a; path = pjsip/lib/libpj.a; sourceTree = "<group>"; };
+		CECD15E122CF6534007D3497 /* libpjsip-ua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjsip-ua.a"; path = "pjsip/lib/libpjsip-ua.a"; sourceTree = "<group>"; };
+		CECD15E222CF6534007D3497 /* libpjsua2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpjsua2.a; path = pjsip/lib/libpjsua2.a; sourceTree = "<group>"; };
+		CECD15E322CF6534007D3497 /* libilbccodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libilbccodec.a; path = pjsip/lib/libilbccodec.a; sourceTree = "<group>"; };
+		CECD15E422CF6534007D3497 /* libpjlib-util.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjlib-util.a"; path = "pjsip/lib/libpjlib-util.a"; sourceTree = "<group>"; };
+		CECD15E522CF6534007D3497 /* libpjsip-simple.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjsip-simple.a"; path = "pjsip/lib/libpjsip-simple.a"; sourceTree = "<group>"; };
+		CECD15E622CF6534007D3497 /* libpjsip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpjsip.a; path = pjsip/lib/libpjsip.a; sourceTree = "<group>"; };
+		CECD15E722CF6534007D3497 /* libpjmedia-codec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjmedia-codec.a"; path = "pjsip/lib/libpjmedia-codec.a"; sourceTree = "<group>"; };
+		CECD15FD22CF65DF007D3497 /* Hello-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hello-Bridging-Header.h"; sourceTree = "<group>"; };
+		CECD15FE22CF65DF007D3497 /* demo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = demo.m; sourceTree = "<group>"; };
+		CECD160022CF65FA007D3497 /* demo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = demo.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +79,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CECD15E822CF6534007D3497 /* libpjsdp.a in Frameworks */,
+				CECD15E922CF6534007D3497 /* libsrtp.a in Frameworks */,
+				CECD15EA22CF6534007D3497 /* libresample.a in Frameworks */,
+				CECD15EB22CF6534007D3497 /* libpjsua.a in Frameworks */,
+				CECD15EC22CF6534007D3497 /* libg7221codec.a in Frameworks */,
+				CECD15ED22CF6534007D3497 /* libgsmcodec.a in Frameworks */,
+				CECD15EE22CF6534007D3497 /* libwebrtc.a in Frameworks */,
+				CECD15EF22CF6534007D3497 /* libpjmedia-audiodev.a in Frameworks */,
+				CECD15F022CF6534007D3497 /* libspeex.a in Frameworks */,
+				CECD15F122CF6534007D3497 /* libyuv.a in Frameworks */,
+				CECD15F222CF6534007D3497 /* libpjmedia.a in Frameworks */,
+				CECD15F322CF6534007D3497 /* libpjnath.a in Frameworks */,
+				CECD15F422CF6534007D3497 /* libpjmedia-videodev.a in Frameworks */,
+				CECD15F522CF6534007D3497 /* libpj.a in Frameworks */,
+				CECD15F622CF6534007D3497 /* libpjsip-ua.a in Frameworks */,
+				CECD15F722CF6534007D3497 /* libpjsua2.a in Frameworks */,
+				CECD15F822CF6534007D3497 /* libilbccodec.a in Frameworks */,
+				CECD15F922CF6534007D3497 /* libpjlib-util.a in Frameworks */,
+				CECD15FA22CF6534007D3497 /* libpjsip-simple.a in Frameworks */,
+				CECD15FB22CF6534007D3497 /* libpjsip.a in Frameworks */,
+				CECD15FC22CF6534007D3497 /* libpjmedia-codec.a in Frameworks */,
+				CECD15D122CF651F007D3497 /* AVFoundation.framework in Frameworks */,
+				CECD15D222CF651F007D3497 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +113,7 @@
 			children = (
 				CECD15BB22CF6430007D3497 /* Hello */,
 				CECD15BA22CF6430007D3497 /* Products */,
+				CECD15CE22CF651F007D3497 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,8 +134,41 @@
 				CECD15C322CF6431007D3497 /* Assets.xcassets */,
 				CECD15C522CF6431007D3497 /* LaunchScreen.storyboard */,
 				CECD15C822CF6431007D3497 /* Info.plist */,
+				CECD15FE22CF65DF007D3497 /* demo.m */,
+				CECD15FD22CF65DF007D3497 /* Hello-Bridging-Header.h */,
+				CECD160022CF65FA007D3497 /* demo.h */,
 			);
 			path = Hello;
+			sourceTree = "<group>";
+		};
+		CECD15CE22CF651F007D3497 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CECD15D722CF6533007D3497 /* libg7221codec.a */,
+				CECD15D822CF6533007D3497 /* libgsmcodec.a */,
+				CECD15E322CF6534007D3497 /* libilbccodec.a */,
+				CECD15E022CF6534007D3497 /* libpj.a */,
+				CECD15E422CF6534007D3497 /* libpjlib-util.a */,
+				CECD15DA22CF6534007D3497 /* libpjmedia-audiodev.a */,
+				CECD15E722CF6534007D3497 /* libpjmedia-codec.a */,
+				CECD15DF22CF6534007D3497 /* libpjmedia-videodev.a */,
+				CECD15DD22CF6534007D3497 /* libpjmedia.a */,
+				CECD15DE22CF6534007D3497 /* libpjnath.a */,
+				CECD15D322CF6533007D3497 /* libpjsdp.a */,
+				CECD15E522CF6534007D3497 /* libpjsip-simple.a */,
+				CECD15E122CF6534007D3497 /* libpjsip-ua.a */,
+				CECD15E622CF6534007D3497 /* libpjsip.a */,
+				CECD15D622CF6533007D3497 /* libpjsua.a */,
+				CECD15E222CF6534007D3497 /* libpjsua2.a */,
+				CECD15D522CF6533007D3497 /* libresample.a */,
+				CECD15DB22CF6534007D3497 /* libspeex.a */,
+				CECD15D422CF6533007D3497 /* libsrtp.a */,
+				CECD15D922CF6533007D3497 /* libwebrtc.a */,
+				CECD15DC22CF6534007D3497 /* libyuv.a */,
+				CECD15D022CF651F007D3497 /* AudioToolbox.framework */,
+				CECD15CF22CF651F007D3497 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +203,12 @@
 				TargetAttributes = {
 					CECD15B822CF6430007D3497 = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -135,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CECD15FF22CF65DF007D3497 /* demo.m in Sources */,
 				CECD15BF22CF6430007D3497 /* ViewController.swift in Sources */,
 				CECD15BD22CF6430007D3497 /* AppDelegate.swift in Sources */,
 			);
@@ -282,14 +396,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TQ7AZ7K6N7;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"PJ_AUTOCONF=1",
+					USE_GUI,
+				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/pjsip/include";
 				INFOPLIST_FILE = Hello/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/pjsip/lib";
 				PRODUCT_BUNDLE_IDENTIFIER = systec.Hello;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Hello/Hello-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -299,14 +424,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TQ7AZ7K6N7;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"PJ_AUTOCONF=1",
+					USE_GUI,
+				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/pjsip/include";
 				INFOPLIST_FILE = Hello/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/pjsip/lib";
 				PRODUCT_BUNDLE_IDENTIFIER = systec.Hello;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Hello/Hello-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
