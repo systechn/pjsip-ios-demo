@@ -31,6 +31,11 @@ static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_r
     
     /* Automatically answer incoming calls with 200/OK */
     pjsua_call_answer(call_id, 200, NULL, NULL);
+    
+    dispatch_queue_t queue = dispatch_get_main_queue();
+    dispatch_async(queue, ^{
+        [ViewController name: @"on_incoming_call" dir: @"huhu"];
+    });
 }
 
 /* Callback called by the library when call's state has changed */
@@ -41,6 +46,15 @@ static void on_call_state(pjsua_call_id call_id, pjsip_event *e) {
     
     pjsua_call_get_info(call_id, &ci);
     PJ_LOG(3,(THIS_FILE, "Call %d state=%.*s", call_id, (int)ci.state_text.slen, ci.state_text.ptr));
+    
+//    char buf[512] = "";
+//    sprintf(buf, "Call %d state=%.*s", (int)ci.state_text.slen, ci.state_text.ptr);
+    NSString *hehe =[NSString stringWithFormat:@"%d %s", (int)ci.state_text.slen, ci.state_text.ptr];
+    
+    dispatch_queue_t queue = dispatch_get_main_queue();
+    dispatch_async(queue, ^{
+        [ViewController name: hehe dir: @"huhu"];
+    });
 }
 
 /* Callback called by the library when call's media state has changed */
@@ -110,6 +124,8 @@ void demo() {
     ua_cfg.cb.on_incoming_call = &on_incoming_call;
     ua_cfg.cb.on_call_media_state = &on_call_media_state;
     ua_cfg.cb.on_call_state = &on_call_state;
+    
+//    ua_cfg.cb.on
     
     pjsua_logging_config_default(&log_cfg);
     log_cfg.console_level = 3; /* better */

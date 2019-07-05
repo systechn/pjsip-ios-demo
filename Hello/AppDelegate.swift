@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         demo()
         
-        add_account("hk.systec-pbx.net", "00000000000001E3", "748964")
+        add_account("hk.systec-pbx.net", "0000000000000206", "730353")
         return true
     }
 
