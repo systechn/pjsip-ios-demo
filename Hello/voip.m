@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import "Hello-Swift.h"
 
 #import <pjsua.h>
@@ -55,7 +56,9 @@ static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_r
 //    pjsua_call_answer(call_id, 200, NULL, NULL);
     
     if(-1 == voip.call_id) {
+        AudioServicesPlaySystemSound(1109);
         voip.call_id = call_id;
+        pjsua_call_answer(call_id, 180 /* ring */, NULL, NULL);
     }
     
     change_ui_status(ci.remote_info.ptr);
@@ -74,6 +77,8 @@ static void on_call_state(pjsua_call_id call_id, pjsip_event *e) {
 //    sprintf(buf, "Call %d state=%.*s", (int)ci.state_text.slen, ci.state_text.ptr);
     if(PJSIP_INV_STATE_DISCONNECTED == ci.state) {
         voip.call_id = -1;
+    } else if (PJSIP_INV_STATE_EARLY == ci.state) {
+        AudioServicesPlaySystemSound(1109);
     }
     change_ui_status(ci.state_text.ptr);
 }
@@ -144,7 +149,7 @@ void voip_start(unsigned port) {
     ua_cfg.cb.on_reg_state = &on_reg_state;
     
     pjsua_logging_config_default(&log_cfg);
-    log_cfg.console_level = 4; /* 3 better */
+    log_cfg.console_level = 3; /* 3 better */
     pjsua_media_config_default(&media_cfg);
     
     pjsua_init(&ua_cfg, &log_cfg, &media_cfg);
