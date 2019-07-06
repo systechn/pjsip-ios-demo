@@ -9,17 +9,28 @@
 #import <Foundation/Foundation.h>
 #import "Hello-Swift.h"
 
-#import "demo.h"
-
 #import <pjsua.h>
 
-#define THIS_FILE "demo"
+#define THIS_FILE "voip"
 
-#define SIP_DOMAIN "hk.systec-pbx.net"
-#define SIP_USER "00000000000001E3"
-#define SIP_PASSWD "748964"
+typedef struct Voip_t {
+    pjsua_acc_id acc_id;
+    pjsua_call_id call_id;
+} Voip_t;
 
-pjsua_acc_id acc_id;
+static Voip_t voip = {
+    .acc_id = -1,
+    .call_id = -1,
+};
+
+static void change_ui_status(const char *status) {
+    NSString *label =[NSString stringWithFormat:@"%s", status];
+    
+    dispatch_queue_t queue = dispatch_get_main_queue();
+    dispatch_async(queue, ^{
+        [ViewController status: label];
+    });
+}
 
 static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_rx_data *rdata) {
     pjsua_call_info ci;
@@ -32,14 +43,13 @@ static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_r
     PJ_LOG(3,(THIS_FILE, "Incoming call from %.*s!!", (int)ci.remote_info.slen, ci.remote_info.ptr));
     
     /* Automatically answer incoming calls with 200/OK */
-    pjsua_call_answer(call_id, 200, NULL, NULL);
+//    pjsua_call_answer(call_id, 200, NULL, NULL);
     
-    NSString *label =[NSString stringWithFormat:@"%d %s", (int)ci.remote_info.slen, ci.remote_info.ptr];
+    if(-1 == voip.call_id) {
+        voip.call_id = call_id;
+    }
     
-    dispatch_queue_t queue = dispatch_get_main_queue();
-    dispatch_async(queue, ^{
-        [ViewController status: label];
-    });
+    change_ui_status(ci.remote_info.ptr);
 }
 
 /* Callback called by the library when call's state has changed */
@@ -53,12 +63,10 @@ static void on_call_state(pjsua_call_id call_id, pjsip_event *e) {
     
 //    char buf[512] = "";
 //    sprintf(buf, "Call %d state=%.*s", (int)ci.state_text.slen, ci.state_text.ptr);
-    NSString *label =[NSString stringWithFormat:@"%d %s", (int)ci.state_text.slen, ci.state_text.ptr];
-    
-    dispatch_queue_t queue = dispatch_get_main_queue();
-    dispatch_async(queue, ^{
-        [ViewController status: label];
-    });
+    if(PJSIP_INV_STATE_DISCONNECTED == ci.state) {
+        voip.call_id = -1;
+    }
+    change_ui_status(ci.state_text.ptr);
 }
 
 /* Callback called by the library when call's media state has changed */
@@ -74,32 +82,21 @@ static void on_call_media_state(pjsua_call_id call_id) {
     }
 }
 
-void demo_test(const char *path) {
-    printf("demo_test %s\n", path);
-    dispatch_queue_t queue = dispatch_get_main_queue();
-    dispatch_async(queue, ^{
-        printf("main main main\n");
-//        [ViewController status: @"hello+++++++++" dir: @"huhu"];
-    });
+static void on_reg_state(pjsua_acc_id acc_id) {
+    pjsua_acc_info ai;
+    pjsua_acc_get_info(acc_id, &ai);
+    PJ_LOG(3,(THIS_FILE, "on_reg_state %d", ai.status));
+    change_ui_status(ai.status_text.ptr);
 }
 
-void demo_test2(char *path) {
-    printf("demo_test2 %s\n", path);
-//    [ViewController name: @"hello+++++++++" dir: @"huhu"];
-}
-
-char *demo_test3(char *path) {
-    printf("demo_test3 %s\n", path);
-    const char *hehe = "12121212";
-    return (char*)hehe;
-}
-
-int add_account(const char *domain, const char *user, const char *passwd) {
+int voip_add_account(const char *domain, const char *user, const char *passwd) {
+    pj_status_t status;
+    
     pjsua_acc_config cfg;
     pjsua_acc_config_default(&cfg);
-    char id[128] = "";
-    sprintf(id, "sip:%s@%s", user, domain);
-    cfg.id = pj_str(id);
+    char sip_id[128] = "";
+    sprintf(sip_id, "sip:%s@%s", user, domain);
+    cfg.id = pj_str(sip_id);
     char uri[128] = "";
     sprintf(uri, "sip:%s", domain);
     cfg.reg_uri = pj_str(uri);
@@ -110,16 +107,18 @@ int add_account(const char *domain, const char *user, const char *passwd) {
     cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
     cfg.cred_info[0].data = pj_str((char *)passwd);
 //    pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
-    pjsua_acc_modify(acc_id, &cfg);
-    pjsua_acc_set_registration(acc_id, 1);
+    pjsua_acc_modify(voip.acc_id, &cfg);
+    status = pjsua_acc_set_registration(voip.acc_id, 1);
 //    pjsua_acc_set_online_status(acc_id, 1);
+    if (status != PJ_SUCCESS) {
+        PJ_LOG(3,(THIS_FILE, "registration %s error", sip_id));
+    } else {
+        PJ_LOG(3,(THIS_FILE, "registration %s ok", sip_id));
+    }
     return 0;
 }
 
-void demo() {
-        
-    printf("demo demo demo\n");
-
+void voip_start(unsigned port) {
     pj_status_t status;
     
     pjsua_create();
@@ -132,8 +131,7 @@ void demo() {
     ua_cfg.cb.on_incoming_call = &on_incoming_call;
     ua_cfg.cb.on_call_media_state = &on_call_media_state;
     ua_cfg.cb.on_call_state = &on_call_state;
-    
-//    ua_cfg.cb.on
+    ua_cfg.cb.on_reg_state = &on_reg_state;
     
     pjsua_logging_config_default(&log_cfg);
     log_cfg.console_level = 3; /* 3 better */
@@ -145,7 +143,8 @@ void demo() {
     
     pjsua_transport_config_default(&transport_cfg);
     
-    transport_cfg.port = 5062;
+    transport_cfg.port = port;
+    
     
     pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transport_cfg, NULL);
     // pjsua_transport_create(PJSIP_TRANSPORT_TCP, &transportConfig, NULL);
@@ -155,11 +154,38 @@ void demo() {
     pjsua_acc_config cfg;
     
     pjsua_acc_config_default(&cfg);
-    cfg.id = pj_str("sip:0@127.0.0.1");
-    status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
+    
+    const char *local_id = "sip:127.0.0.1";
+    
+    cfg.id = pj_str((char *)local_id); /* local account */
+    status = pjsua_acc_add(&cfg, PJ_TRUE, &voip.acc_id);
+    
     if (status != PJ_SUCCESS) {
-        printf("add account error\n");
+        PJ_LOG(3,(THIS_FILE, "add account %s error", local_id));
+    } else {
+        PJ_LOG(3,(THIS_FILE, "add account %s ok", local_id));
     }
-    printf("demo demo demo end\n");
 }
 
+void voip_hangup() {
+    pjsua_call_hangup_all();
+    voip.call_id = -1;
+}
+
+void voip_answer() {
+    PJ_LOG(3,(THIS_FILE, "voip_answer %d", voip.call_id));
+    if(-1 != voip.call_id) {
+        pjsua_call_answer(voip.call_id, 200, NULL, NULL);
+    }
+}
+
+void voip_call(const char *uri) {
+    pj_status_t status;
+    pj_str_t callee_uri = pj_str((char *)uri);
+    status = pjsua_call_make_call(voip.acc_id, &callee_uri, 0, NULL, NULL, NULL);
+    if (status != PJ_SUCCESS) {
+        PJ_LOG(3,(THIS_FILE, "call %s error", uri));
+    } else {
+        PJ_LOG(3,(THIS_FILE, "call %s ok", uri));
+    }
+}

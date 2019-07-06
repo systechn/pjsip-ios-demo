@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var domain: UITextField!
     @IBOutlet weak var sipId: UITextField!
     @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var callee: UITextField!
     @IBOutlet weak var status: UILabel!
     
     static var demo:ViewController? = nil
@@ -31,8 +32,19 @@ class ViewController: UIViewController {
         let domain = self.domain.text
         let sipId = self.sipId.text
         let password = self.password.text
-        add_account(domain, sipId, password)
+        voip_add_account(domain, sipId, password)
     }
     
+    @IBAction func onHangup(_ sender: Any) {
+        voip_hangup()
+    }
+    
+    @IBAction func onAnswer(_ sender: Any) {
+        voip_answer()
+    }
+    
+    @IBAction func onCall(_ sender: Any) {
+        voip_call(callee.text)
+    }
 }
 

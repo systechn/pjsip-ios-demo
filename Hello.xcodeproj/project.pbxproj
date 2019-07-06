@@ -35,7 +35,7 @@
 		CECD15FA22CF6534007D3497 /* libpjsip-simple.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15E522CF6534007D3497 /* libpjsip-simple.a */; };
 		CECD15FB22CF6534007D3497 /* libpjsip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15E622CF6534007D3497 /* libpjsip.a */; };
 		CECD15FC22CF6534007D3497 /* libpjmedia-codec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15E722CF6534007D3497 /* libpjmedia-codec.a */; };
-		CECD15FF22CF65DF007D3497 /* demo.m in Sources */ = {isa = PBXBuildFile; fileRef = CECD15FE22CF65DF007D3497 /* demo.m */; };
+		CECD15FF22CF65DF007D3497 /* voip.m in Sources */ = {isa = PBXBuildFile; fileRef = CECD15FE22CF65DF007D3497 /* voip.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,8 +70,8 @@
 		CECD15E622CF6534007D3497 /* libpjsip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpjsip.a; path = pjsip/lib/libpjsip.a; sourceTree = "<group>"; };
 		CECD15E722CF6534007D3497 /* libpjmedia-codec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjmedia-codec.a"; path = "pjsip/lib/libpjmedia-codec.a"; sourceTree = "<group>"; };
 		CECD15FD22CF65DF007D3497 /* Hello-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hello-Bridging-Header.h"; sourceTree = "<group>"; };
-		CECD15FE22CF65DF007D3497 /* demo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = demo.m; sourceTree = "<group>"; };
-		CECD160022CF65FA007D3497 /* demo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = demo.h; sourceTree = "<group>"; };
+		CECD15FE22CF65DF007D3497 /* voip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = voip.m; sourceTree = "<group>"; };
+		CECD160022CF65FA007D3497 /* voip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = voip.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,9 +134,9 @@
 				CECD15C322CF6431007D3497 /* Assets.xcassets */,
 				CECD15C522CF6431007D3497 /* LaunchScreen.storyboard */,
 				CECD15C822CF6431007D3497 /* Info.plist */,
-				CECD15FE22CF65DF007D3497 /* demo.m */,
+				CECD15FE22CF65DF007D3497 /* voip.m */,
 				CECD15FD22CF65DF007D3497 /* Hello-Bridging-Header.h */,
-				CECD160022CF65FA007D3497 /* demo.h */,
+				CECD160022CF65FA007D3497 /* voip.h */,
 			);
 			path = Hello;
 			sourceTree = "<group>";
@@ -248,7 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CECD15FF22CF65DF007D3497 /* demo.m in Sources */,
+				CECD15FF22CF65DF007D3497 /* voip.m in Sources */,
 				CECD15BF22CF6430007D3497 /* ViewController.swift in Sources */,
 				CECD15BD22CF6430007D3497 /* AppDelegate.swift in Sources */,
 			);

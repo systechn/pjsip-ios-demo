@@ -16,19 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-//        let cabc = UnsafeMutablePointer<Int8>(mutating: "hello")
-//        demo_test(cabc)
-//        demo_test2(cabc)
-//        let abc = "asdasdsa"
-//        let rabc = demo_test3(cabc)
-//        // let ccabc = UnsafePointer<Int8>(rabc)
-//        let cc = String(cString: rabc!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
-//
-//        print("hello", cc!, abc)
-        
-        demo()
-//        add_account("hk.systec-pbx.net", "0000000000000206", "730353")
+        voip_start(5062)
         return true
     }
 
