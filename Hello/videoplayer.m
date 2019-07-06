@@ -207,7 +207,9 @@ void videoplayer_play(const char *uri) {
     }
     videoplayer.stop = 1;
     sprintf(videoplayer.uri, "%s", uri);
+//    printf("videoplayer_play 0 %s\n", uri);
     dispatch_async(videoplayer.queue, ^{
+        printf("videoplayer_play %s\n", videoplayer.uri);
         videoplayer.stop = 0;
         videoplayer_handler();
     });
