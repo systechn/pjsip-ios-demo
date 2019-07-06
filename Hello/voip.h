@@ -9,11 +9,10 @@
 #ifndef voip_h
 #define voip_h
 
-#import <Foundation/Foundation.h>
-
 void voip_start(unsigned port);
 
-int voip_add_account(const char *domain, const char *user, const char *passwd);
+int voip_account_update(const char *domain, const char *user, const char *passwd);
+int voip_account_unregister();
 
 void voip_hangup();
 void voip_answer();

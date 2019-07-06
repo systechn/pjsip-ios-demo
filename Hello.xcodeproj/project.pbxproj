@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE66891A22D08CC200C61892 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66891322D08CC100C61892 /* libavcodec.a */; };
+		CE66891B22D08CC200C61892 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66891422D08CC100C61892 /* libavfilter.a */; };
+		CE66891C22D08CC200C61892 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66891522D08CC100C61892 /* libavformat.a */; };
+		CE66891D22D08CC200C61892 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66891622D08CC100C61892 /* libavutil.a */; };
+		CE66891E22D08CC200C61892 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66891722D08CC100C61892 /* libswresample.a */; };
+		CE66891F22D08CC200C61892 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66891822D08CC100C61892 /* libavdevice.a */; };
+		CE66892022D08CC200C61892 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66891922D08CC200C61892 /* libswscale.a */; };
+		CE66892222D08D2B00C61892 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66892122D08D2B00C61892 /* libz.tbd */; };
+		CE66892422D08D3E00C61892 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66892322D08D3E00C61892 /* libbz2.tbd */; };
+		CE66892622D08D4F00C61892 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66892522D08D4F00C61892 /* libiconv.tbd */; };
+		CE66892822D090F700C61892 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66892722D090F700C61892 /* VideoToolbox.framework */; };
+		CE66892A22D091B100C61892 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66892922D091B100C61892 /* CoreMedia.framework */; };
+		CE66892C22D0A09600C61892 /* videoplayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE66892B22D0A09600C61892 /* videoplayer.m */; };
 		CECD15BD22CF6430007D3497 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD15BC22CF6430007D3497 /* AppDelegate.swift */; };
 		CECD15BF22CF6430007D3497 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD15BE22CF6430007D3497 /* ViewController.swift */; };
 		CECD15C222CF6430007D3497 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECD15C022CF6430007D3497 /* Main.storyboard */; };
@@ -39,6 +52,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE66891322D08CC100C61892 /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavcodec.a; path = "FFmpeg-iOS/lib/libavcodec.a"; sourceTree = "<group>"; };
+		CE66891422D08CC100C61892 /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavfilter.a; path = "FFmpeg-iOS/lib/libavfilter.a"; sourceTree = "<group>"; };
+		CE66891522D08CC100C61892 /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavformat.a; path = "FFmpeg-iOS/lib/libavformat.a"; sourceTree = "<group>"; };
+		CE66891622D08CC100C61892 /* libavutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavutil.a; path = "FFmpeg-iOS/lib/libavutil.a"; sourceTree = "<group>"; };
+		CE66891722D08CC100C61892 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswresample.a; path = "FFmpeg-iOS/lib/libswresample.a"; sourceTree = "<group>"; };
+		CE66891822D08CC100C61892 /* libavdevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavdevice.a; path = "FFmpeg-iOS/lib/libavdevice.a"; sourceTree = "<group>"; };
+		CE66891922D08CC200C61892 /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswscale.a; path = "FFmpeg-iOS/lib/libswscale.a"; sourceTree = "<group>"; };
+		CE66892122D08D2B00C61892 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		CE66892322D08D3E00C61892 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
+		CE66892522D08D4F00C61892 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		CE66892722D090F700C61892 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		CE66892922D091B100C61892 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		CE66892B22D0A09600C61892 /* videoplayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = videoplayer.m; sourceTree = "<group>"; };
+		CE66892D22D0A0B000C61892 /* videoplayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = videoplayer.h; sourceTree = "<group>"; };
 		CECD15B922CF6430007D3497 /* Hello.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hello.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECD15BC22CF6430007D3497 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CECD15BE22CF6430007D3497 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +106,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE66892A22D091B100C61892 /* CoreMedia.framework in Frameworks */,
+				CE66892822D090F700C61892 /* VideoToolbox.framework in Frameworks */,
+				CE66892622D08D4F00C61892 /* libiconv.tbd in Frameworks */,
+				CE66892422D08D3E00C61892 /* libbz2.tbd in Frameworks */,
+				CE66892222D08D2B00C61892 /* libz.tbd in Frameworks */,
+				CE66891A22D08CC200C61892 /* libavcodec.a in Frameworks */,
+				CE66891B22D08CC200C61892 /* libavfilter.a in Frameworks */,
+				CE66891C22D08CC200C61892 /* libavformat.a in Frameworks */,
+				CE66891D22D08CC200C61892 /* libavutil.a in Frameworks */,
+				CE66891E22D08CC200C61892 /* libswresample.a in Frameworks */,
+				CE66891F22D08CC200C61892 /* libavdevice.a in Frameworks */,
+				CE66892022D08CC200C61892 /* libswscale.a in Frameworks */,
 				CECD15E822CF6534007D3497 /* libpjsdp.a in Frameworks */,
 				CECD15E922CF6534007D3497 /* libsrtp.a in Frameworks */,
 				CECD15EA22CF6534007D3497 /* libresample.a in Frameworks */,
@@ -137,6 +176,8 @@
 				CECD15FE22CF65DF007D3497 /* voip.m */,
 				CECD15FD22CF65DF007D3497 /* Hello-Bridging-Header.h */,
 				CECD160022CF65FA007D3497 /* voip.h */,
+				CE66892B22D0A09600C61892 /* videoplayer.m */,
+				CE66892D22D0A0B000C61892 /* videoplayer.h */,
 			);
 			path = Hello;
 			sourceTree = "<group>";
@@ -144,6 +185,18 @@
 		CECD15CE22CF651F007D3497 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE66892922D091B100C61892 /* CoreMedia.framework */,
+				CE66892722D090F700C61892 /* VideoToolbox.framework */,
+				CE66892522D08D4F00C61892 /* libiconv.tbd */,
+				CE66892322D08D3E00C61892 /* libbz2.tbd */,
+				CE66892122D08D2B00C61892 /* libz.tbd */,
+				CE66891322D08CC100C61892 /* libavcodec.a */,
+				CE66891822D08CC100C61892 /* libavdevice.a */,
+				CE66891422D08CC100C61892 /* libavfilter.a */,
+				CE66891522D08CC100C61892 /* libavformat.a */,
+				CE66891622D08CC100C61892 /* libavutil.a */,
+				CE66891722D08CC100C61892 /* libswresample.a */,
+				CE66891922D08CC200C61892 /* libswscale.a */,
 				CECD15D722CF6533007D3497 /* libg7221codec.a */,
 				CECD15D822CF6533007D3497 /* libgsmcodec.a */,
 				CECD15E322CF6534007D3497 /* libilbccodec.a */,
@@ -248,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE66892C22D0A09600C61892 /* videoplayer.m in Sources */,
 				CECD15FF22CF65DF007D3497 /* voip.m in Sources */,
 				CECD15BF22CF6430007D3497 /* ViewController.swift in Sources */,
 				CECD15BD22CF6430007D3497 /* AppDelegate.swift in Sources */,
@@ -404,13 +458,19 @@
 					"PJ_AUTOCONF=1",
 					USE_GUI,
 				);
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/pjsip/include";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/pjsip/include",
+					"$(PROJECT_DIR)/FFmpeg-iOS/include",
+				);
 				INFOPLIST_FILE = Hello/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/pjsip/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/pjsip/lib",
+					"$(PROJECT_DIR)/FFmpeg-iOS/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = systec.Hello;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Hello/Hello-Bridging-Header.h";
@@ -431,13 +491,19 @@
 					"PJ_AUTOCONF=1",
 					USE_GUI,
 				);
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/pjsip/include";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/pjsip/include",
+					"$(PROJECT_DIR)/FFmpeg-iOS/include",
+				);
 				INFOPLIST_FILE = Hello/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/pjsip/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/pjsip/lib",
+					"$(PROJECT_DIR)/FFmpeg-iOS/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = systec.Hello;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Hello/Hello-Bridging-Header.h";

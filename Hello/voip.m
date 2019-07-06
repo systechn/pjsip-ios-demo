@@ -103,7 +103,7 @@ static void on_reg_state(pjsua_acc_id acc_id) {
     change_ui_status(ai.status_text.ptr);
 }
 
-int voip_add_account(const char *domain, const char *user, const char *passwd) {
+int voip_account_update(const char *domain, const char *user, const char *passwd) {
     pj_status_t status;
     
     pjsua_acc_config cfg;
@@ -128,6 +128,27 @@ int voip_add_account(const char *domain, const char *user, const char *passwd) {
         PJ_LOG(3,(THIS_FILE, "registration %s error", sip_id));
     } else {
         PJ_LOG(3,(THIS_FILE, "registration %s ok", sip_id));
+    }
+    return 0;
+}
+
+int voip_account_unregister() {
+    pj_status_t status;
+    
+//    status = pjsua_acc_set_registration(voip.acc_id, 0);
+    
+    pjsua_acc_config cfg;
+    pjsua_acc_config_default(&cfg);
+    
+    const char *local_id = "sip:127.0.0.1";
+    
+    cfg.id = pj_str((char *)local_id); /* local account */
+    status = pjsua_acc_modify(voip.acc_id, &cfg);
+    
+    if (status != PJ_SUCCESS) {
+        PJ_LOG(3,(THIS_FILE, "add account %s error", local_id));
+    } else {
+        PJ_LOG(3,(THIS_FILE, "add account %s ok", local_id));
     }
     return 0;
 }
@@ -207,12 +228,17 @@ void voip_answer() {
 }
 
 void voip_call(const char *uri) {
+    if(-1 != voip.call_id) {
+        voip_hangup();
+    }
+    pjsua_call_id call_id;
     pj_status_t status;
     pj_str_t callee_uri = pj_str((char *)uri);
-    status = pjsua_call_make_call(voip.acc_id, &callee_uri, 0, NULL, NULL, NULL);
+    status = pjsua_call_make_call(voip.acc_id, &callee_uri, 0, NULL, NULL, &call_id);
     if (status != PJ_SUCCESS) {
         PJ_LOG(3,(THIS_FILE, "call %s error", uri));
     } else {
+        voip.call_id = call_id;
         PJ_LOG(3,(THIS_FILE, "call %s ok", uri));
     }
 }
