@@ -17,11 +17,13 @@
 typedef struct Voip_t {
     pjsua_acc_id acc_id;
     pjsua_call_id call_id;
+    pjsua_call_id call_id_out;
 } Voip_t;
 
 static Voip_t voip = {
     .acc_id = -1,
     .call_id = -1,
+    .call_id_out = -1,
 };
 
 static void change_ui_status(const char *status) {
@@ -56,7 +58,7 @@ static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_r
 //    pjsua_call_answer(call_id, 200, NULL, NULL);
     
     
-    if(-1 == voip.call_id) {
+    if(-1 == voip.call_id && -1 == voip.call_id_out) {
         AudioServicesPlaySystemSound(1109); /* shake */
         voip.call_id = call_id;
         pjsua_call_answer(call_id, 180 /* ring */, NULL, NULL);
@@ -78,6 +80,7 @@ static void on_call_state(pjsua_call_id call_id, pjsip_event *e) {
 //    sprintf(buf, "Call %d state=%.*s", (int)ci.state_text.slen, ci.state_text.ptr);
     if(PJSIP_INV_STATE_DISCONNECTED == ci.state) {
         voip.call_id = -1;
+        voip.call_id_out = -1;
     } else if (PJSIP_INV_STATE_EARLY == ci.state) {
         AudioServicesPlaySystemSound(1109);
     }
@@ -219,17 +222,18 @@ void voip_start(unsigned port) {
 void voip_hangup() {
     pjsua_call_hangup_all();
     voip.call_id = -1;
+    voip.call_id_out = -1;
 }
 
 void voip_answer() {
     PJ_LOG(3,(THIS_FILE, "voip_answer %d", voip.call_id));
-    if(-1 != voip.call_id) {
+    if(-1 != voip.call_id && -1 == voip.call_id_out) {
         pjsua_call_answer(voip.call_id, 200, NULL, NULL);
     }
 }
 
 void voip_call(const char *uri) {
-    if(-1 != voip.call_id) {
+    if(-1 != voip.call_id_out || -1 != voip.call_id) {
         voip_hangup();
     }
     pjsua_call_id call_id;
@@ -239,7 +243,7 @@ void voip_call(const char *uri) {
     if (status != PJ_SUCCESS) {
         PJ_LOG(3,(THIS_FILE, "call %s error", uri));
     } else {
-        voip.call_id = call_id;
+        voip.call_id_out = call_id;
         PJ_LOG(3,(THIS_FILE, "call %s ok", uri));
     }
 }
