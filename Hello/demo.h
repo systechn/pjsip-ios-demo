@@ -11,7 +11,7 @@
 
 #import <Foundation/Foundation.h>
 
-void demo();
+void demo(void);
 void demo_test(const char *data);
 void demo_test2(char *data);
 char *demo_test3(char *path);

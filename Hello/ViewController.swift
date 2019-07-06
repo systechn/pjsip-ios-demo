@@ -10,7 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var domain: UITextField!
+    @IBOutlet weak var sipId: UITextField!
+    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var status: UILabel!
     
     static var demo:ViewController? = nil
     
@@ -20,15 +23,15 @@ class ViewController: UIViewController {
         ViewController.demo = self
     }
     
-    @objc(name:dir:) static func name(path: String, dir: String) -> Int8 {
-//        print(path, dir)
-        ViewController.demo?.name.text = path
-        return 0
+    @objc(status:) static func stateChange(path: String) {
+        ViewController.demo?.status.text = path
     }
     
-    @IBAction func onClick(_ sender: Any) {
-        print(sender)
-        self.name.text = "hehe"
+    @IBAction func onRegister(_ sender: Any) {
+        let domain = self.domain.text
+        let sipId = self.sipId.text
+        let password = self.password.text
+        add_account(domain, sipId, password)
     }
     
 }

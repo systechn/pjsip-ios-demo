@@ -19,6 +19,8 @@
 #define SIP_USER "00000000000001E3"
 #define SIP_PASSWD "748964"
 
+pjsua_acc_id acc_id;
+
 static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_rx_data *rdata) {
     pjsua_call_info ci;
     
@@ -32,9 +34,11 @@ static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_r
     /* Automatically answer incoming calls with 200/OK */
     pjsua_call_answer(call_id, 200, NULL, NULL);
     
+    NSString *label =[NSString stringWithFormat:@"%d %s", (int)ci.remote_info.slen, ci.remote_info.ptr];
+    
     dispatch_queue_t queue = dispatch_get_main_queue();
     dispatch_async(queue, ^{
-        [ViewController name: @"on_incoming_call" dir: @"huhu"];
+        [ViewController status: label];
     });
 }
 
@@ -49,11 +53,11 @@ static void on_call_state(pjsua_call_id call_id, pjsip_event *e) {
     
 //    char buf[512] = "";
 //    sprintf(buf, "Call %d state=%.*s", (int)ci.state_text.slen, ci.state_text.ptr);
-    NSString *hehe =[NSString stringWithFormat:@"%d %s", (int)ci.state_text.slen, ci.state_text.ptr];
+    NSString *label =[NSString stringWithFormat:@"%d %s", (int)ci.state_text.slen, ci.state_text.ptr];
     
     dispatch_queue_t queue = dispatch_get_main_queue();
     dispatch_async(queue, ^{
-        [ViewController name: hehe dir: @"huhu"];
+        [ViewController status: label];
     });
 }
 
@@ -75,7 +79,7 @@ void demo_test(const char *path) {
     dispatch_queue_t queue = dispatch_get_main_queue();
     dispatch_async(queue, ^{
         printf("main main main\n");
-        [ViewController name: @"hello+++++++++" dir: @"huhu"];
+//        [ViewController status: @"hello+++++++++" dir: @"huhu"];
     });
 }
 
@@ -91,7 +95,6 @@ char *demo_test3(char *path) {
 }
 
 int add_account(const char *domain, const char *user, const char *passwd) {
-    pjsua_acc_id acc_id;
     pjsua_acc_config cfg;
     pjsua_acc_config_default(&cfg);
     char id[128] = "";
@@ -103,15 +106,20 @@ int add_account(const char *domain, const char *user, const char *passwd) {
     cfg.cred_count = 1;
     cfg.cred_info[0].realm = pj_str("*");
     cfg.cred_info[0].scheme = pj_str("digest");
-    cfg.cred_info[0].username = pj_str(user);
+    cfg.cred_info[0].username = pj_str((char *)user);
     cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
-    cfg.cred_info[0].data = pj_str(passwd);
-    pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
+    cfg.cred_info[0].data = pj_str((char *)passwd);
+//    pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
+    pjsua_acc_modify(acc_id, &cfg);
+    pjsua_acc_set_registration(acc_id, 1);
+//    pjsua_acc_set_online_status(acc_id, 1);
     return 0;
 }
 
 void demo() {
-    pjsua_acc_id acc_id;
+        
+    printf("demo demo demo\n");
+
     pj_status_t status;
     
     pjsua_create();
@@ -128,50 +136,30 @@ void demo() {
 //    ua_cfg.cb.on
     
     pjsua_logging_config_default(&log_cfg);
-    log_cfg.console_level = 3; /* better */
+    log_cfg.console_level = 3; /* 3 better */
     pjsua_media_config_default(&media_cfg);
     
     pjsua_init(&ua_cfg, &log_cfg, &media_cfg);
     
-    pjsua_transport_config transportConfig;
+    pjsua_transport_config transport_cfg;
     
-    pjsua_transport_config_default(&transportConfig);
+    pjsua_transport_config_default(&transport_cfg);
     
-    transportConfig.port = 5062;
+    transport_cfg.port = 5062;
     
-    pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transportConfig, NULL);
+    pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transport_cfg, NULL);
     // pjsua_transport_create(PJSIP_TRANSPORT_TCP, &transportConfig, NULL);
     
     pjsua_start();
     
     pjsua_acc_config cfg;
     
-#if 0
     pjsua_acc_config_default(&cfg);
-    cfg.id = pj_str("sip:" SIP_USER "@" SIP_DOMAIN);
-    cfg.reg_uri = pj_str("sip:" SIP_DOMAIN);
-    cfg.cred_count = 1;
-    cfg.cred_info[0].realm = pj_str("*");
-    cfg.cred_info[0].scheme = pj_str("digest");
-    cfg.cred_info[0].username = pj_str(SIP_USER);
-    cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
-    cfg.cred_info[0].data = pj_str(SIP_PASSWD);
-#else
-    pjsua_acc_config_default(&cfg);
-    //    cfg.id = pj_str("sip:" SIP_USER "@" SIP_DOMAIN);
     cfg.id = pj_str("sip:0@127.0.0.1");
-    //    cfg.id = pj_str("sip:0@0.0.0.0");
-    //    cfg.id = pj_str("sip:0@192.168.1.105");
-    //    cfg.reg_uri = pj_str("sip:" SIP_DOMAIN);
-    //    cfg.cred_count = 1;
-    //    cfg.cred_info[0].realm = pj_str("*");
-    //    cfg.cred_info[0].scheme = pj_str("digest");
-    //    cfg.cred_info[0].username = pj_str(SIP_USER);
-    //    cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
-    //    cfg.cred_info[0].data = pj_str(SIP_PASSWD);
-#endif
-    //
     status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
-    //    if (status != PJ_SUCCESS) error_exit("Error adding account", status);
+    if (status != PJ_SUCCESS) {
+        printf("add account error\n");
+    }
+    printf("demo demo demo end\n");
 }
 
