@@ -32,6 +32,15 @@ static void change_ui_status(const char *status) {
     });
 }
 
+//static void change_ui_info(const char *status) {
+//    NSString *label =[NSString stringWithFormat:@"%s", status];
+//
+//    dispatch_queue_t queue = dispatch_get_main_queue();
+//    dispatch_async(queue, ^{
+//        [ViewController info: label];
+//    });
+//}
+
 static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_rx_data *rdata) {
     pjsua_call_info ci;
     
@@ -120,6 +129,7 @@ int voip_add_account(const char *domain, const char *user, const char *passwd) {
 
 void voip_start(unsigned port) {
     pj_status_t status;
+    pjsua_transport_id utid;
     
     pjsua_create();
     
@@ -134,7 +144,7 @@ void voip_start(unsigned port) {
     ua_cfg.cb.on_reg_state = &on_reg_state;
     
     pjsua_logging_config_default(&log_cfg);
-    log_cfg.console_level = 3; /* 3 better */
+    log_cfg.console_level = 4; /* 3 better */
     pjsua_media_config_default(&media_cfg);
     
     pjsua_init(&ua_cfg, &log_cfg, &media_cfg);
@@ -146,7 +156,7 @@ void voip_start(unsigned port) {
     transport_cfg.port = port;
     
     
-    pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transport_cfg, NULL);
+    pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transport_cfg, &utid);
     // pjsua_transport_create(PJSIP_TRANSPORT_TCP, &transportConfig, NULL);
     
     pjsua_start();
@@ -165,6 +175,18 @@ void voip_start(unsigned port) {
     } else {
         PJ_LOG(3,(THIS_FILE, "add account %s ok", local_id));
     }
+    
+    pjsua_transport_info ti;
+    pjsua_transport_get_info(utid, &ti);
+    
+    NSString *label =[NSString stringWithFormat:@"%s:%d", ti.local_name.host.ptr, ti.local_name.port];
+    
+    dispatch_queue_t queue = dispatch_get_main_queue();
+    dispatch_async(queue, ^{
+        [ViewController info: label];
+    });
+    
+    PJ_LOG(3,(THIS_FILE, "published address is %s:%d", ti.local_name.host.ptr, ti.local_name.port));
 }
 
 void voip_hangup() {

@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var callee: UITextField!
     @IBOutlet weak var status: UILabel!
+    @IBOutlet weak var info: UILabel!
     
     static var demo:ViewController? = nil
     
@@ -24,8 +25,12 @@ class ViewController: UIViewController {
         ViewController.demo = self
     }
     
-    @objc(status:) static func stateChange(path: String) {
-        ViewController.demo?.status.text = path
+    @objc(status:) static func status(data: String) {
+        ViewController.demo?.status.text = data
+    }
+    
+    @objc(info:) static func info(data: String) {
+        ViewController.demo?.info.text = data
     }
     
     @IBAction func onRegister(_ sender: Any) {
