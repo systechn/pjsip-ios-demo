@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var callee: UITextField!
     @IBOutlet weak var status: UILabel!
     @IBOutlet weak var info: UILabel!
-    @IBOutlet weak var videoUrl: UITextField!
+    @IBOutlet weak var videoUrl: UITextView!
     @IBOutlet weak var video: UIImageView!
     
     static var demo:ViewController? = nil

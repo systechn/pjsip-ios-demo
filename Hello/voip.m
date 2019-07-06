@@ -55,6 +55,7 @@ static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_r
     /* Automatically answer incoming calls with 200/OK */
 //    pjsua_call_answer(call_id, 200, NULL, NULL);
     
+    
     if(-1 == voip.call_id) {
         AudioServicesPlaySystemSound(1109); /* shake */
         voip.call_id = call_id;
