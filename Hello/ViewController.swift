@@ -19,6 +19,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var videoUrl: UITextView!
     @IBOutlet weak var video: UIImageView!
     
+    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
+    
     static var demo:ViewController? = nil
     
     static var videoPlaying:Bool = false
@@ -27,6 +30,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         ViewController.demo = self
+        self.scrollView.contentSize = self.contentView.frame.size
     }
     
     func createImage(color: UIColor, size: CGSize) -> UIImage {
