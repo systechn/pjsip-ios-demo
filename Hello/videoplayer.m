@@ -49,12 +49,15 @@ static int videoplayer_open() {
     
     int result = avformat_open_input(&videoplayer.pAVFormatContext, videoplayer.uri, NULL, &opts);
     
+    NSLog(@"after avformat_open_input");
     if (result < 0){
         avformat_free_context(videoplayer.pAVFormatContext);
         av_frame_free(&videoplayer.pAVFrame);
         NSLog(@"avformat_open_input fail");
         return -1;
     }
+    
+    videoplayer.pAVFormatContext->max_analyze_duration = 0.5 * AV_TIME_BASE;
     
     result = avformat_find_stream_info(videoplayer.pAVFormatContext, NULL);
     if (result < 0) {
@@ -64,6 +67,7 @@ static int videoplayer_open() {
         return -1;
     }
     
+    NSLog(@"after avformat_find_stream_info");
     videoplayer.videoStreamIndex = -1;
     for (uint i = 0; i < videoplayer.pAVFormatContext->nb_streams; i++) {
         if (AVMEDIA_TYPE_VIDEO == videoplayer.pAVFormatContext->streams[i]->codec->codec_type) {
@@ -91,6 +95,7 @@ static int videoplayer_open() {
     videoplayer.pSwsContext = sws_getContext(videoplayer.videoWidth, videoplayer.videoHeight, AV_PIX_FMT_YUV420P, videoplayer.videoWidth, videoplayer.videoHeight, AV_PIX_FMT_RGB24,
                                  SWS_BICUBIC, 0, 0, 0);
     
+    NSLog(@"after avcodec_find_decoder");
     result = avcodec_open2(videoplayer.pAVCodecContext, pAVCodec, NULL);
     if (result<0){
         NSLog(@"avcodec_open2 < 0");
@@ -174,6 +179,7 @@ static void videoplayer_handler() {
     
     while(!videoplayer.stop) {
         if(!videoplayer.isopen) {
+            NSLog(@"videoplayer is not open %s", videoplayer.uri);
             if(0 == videoplayer_open()) {
                 videoplayer.isopen = 1;
                 NSLog(@"videoplayer_open %s ok", videoplayer.uri);
