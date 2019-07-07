@@ -30,7 +30,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         ViewController.demo = self
-        self.scrollView.contentSize = self.contentView.frame.size
     }
     
     func createImage(color: UIColor, size: CGSize) -> UIImage {

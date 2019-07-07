@@ -52,13 +52,13 @@ static int videoplayer_open() {
     if (result < 0){
         avformat_free_context(videoplayer.pAVFormatContext);
         av_frame_free(&videoplayer.pAVFrame);
-        printf("avformat_open_input fail\n");
+        NSLog(@"avformat_open_input fail");
         return -1;
     }
     
     result = avformat_find_stream_info(videoplayer.pAVFormatContext, NULL);
     if (result < 0) {
-        printf("avformat_find_stream_info < 0\n");
+        NSLog(@"avformat_find_stream_info < 0");
         avformat_free_context(videoplayer.pAVFormatContext);
         av_frame_free(&videoplayer.pAVFrame);
         return -1;
@@ -73,7 +73,7 @@ static int videoplayer_open() {
     }
     
     if (-1 == videoplayer.videoStreamIndex) {
-        printf("-1 == videoStreamIndex\n");
+        NSLog(@"-1 == videoStreamIndex");
         avformat_free_context(videoplayer.pAVFormatContext);
         av_frame_free(&videoplayer.pAVFrame);
         return -1;
@@ -93,7 +93,7 @@ static int videoplayer_open() {
     
     result = avcodec_open2(videoplayer.pAVCodecContext, pAVCodec, NULL);
     if (result<0){
-        printf("avcodec_open2 < 0\n");
+        NSLog(@"avcodec_open2 < 0");
         avformat_free_context(videoplayer.pAVFormatContext);
         av_frame_free(&videoplayer.pAVFrame);
         sws_freeContext(videoplayer.pSwsContext);
@@ -160,7 +160,7 @@ static void videoplayer_rendering() {
             videoplayer.restart = 1;
             videoplayer.time0 = currentTime;
             ++videoplayer.restart_count;
-            printf("videoplayer.restart_count %d\n", videoplayer.restart_count);
+            NSLog(@"videoplayer.restart_count %d", videoplayer.restart_count);
         }
     }
     av_free_packet(&videoplayer.pAVPacket);
@@ -176,9 +176,9 @@ static void videoplayer_handler() {
         if(!videoplayer.isopen) {
             if(0 == videoplayer_open()) {
                 videoplayer.isopen = 1;
-                printf("videoplayer_open %s ok\n", videoplayer.uri);
+                NSLog(@"videoplayer_open %s ok", videoplayer.uri);
             } else {
-                printf("videoplayer_open %s fail\n", videoplayer.uri);
+                NSLog(@"videoplayer_open %s fail", videoplayer.uri);
             }
             sleep(1.0);
             continue;
@@ -208,6 +208,7 @@ void videoplayer_play(const char *uri) {
     videoplayer.stop = 1;
     sprintf(videoplayer.uri, "%s", uri);
     dispatch_async(videoplayer.queue, ^{
+        NSLog(@"videoplayer_play %s", videoplayer.uri);
         videoplayer.stop = 0;
         videoplayer_handler();
     });
