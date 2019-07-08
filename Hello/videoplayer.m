@@ -32,6 +32,8 @@ typedef struct Videoplayer_t {
     int videoStreamIndex;
     NSTimeInterval time0;
     int restart_count;
+    int index;
+    int frame_rate;
 } Videoplayer_t;
 
 Videoplayer_t videoplayer = {
@@ -39,6 +41,7 @@ Videoplayer_t videoplayer = {
     .stop = 0,
     .isopen = 0,
     .uri = "",
+    .index = 0,
 };
 
 static int videoplayer_open() {
@@ -46,6 +49,7 @@ static int videoplayer_open() {
     videoplayer.pAVFrame = av_frame_alloc();
     AVDictionary *opts = NULL;
     av_dict_set(&opts, "stimeout", "6000000", 0);
+//    av_dict_set(&opts, "bufsize", "1024000", 0);
     
     int result = avformat_open_input(&videoplayer.pAVFormatContext, videoplayer.uri, NULL, &opts);
     
@@ -82,6 +86,10 @@ static int videoplayer_open() {
         av_frame_free(&videoplayer.pAVFrame);
         return -1;
     }
+    
+    AVStream *stream = videoplayer.pAVFormatContext->streams[videoplayer.videoStreamIndex];
+    videoplayer.frame_rate = stream->avg_frame_rate.num/stream->avg_frame_rate.den;
+    NSLog(@"videoplayer.frame_rate %d", videoplayer.frame_rate);
     
     videoplayer.pAVCodecContext = videoplayer.pAVFormatContext->streams[videoplayer.videoStreamIndex]->codec;
     videoplayer.videoWidth = videoplayer.pAVCodecContext->width;
@@ -157,6 +165,9 @@ static void videoplayer_rendering() {
                 dispatch_async(queue, ^{
                     [ViewController image: image];
                 });
+                ++videoplayer.index;
+                [NSThread sleepForTimeInterval:0.9/videoplayer.frame_rate];
+//                NSLog(@"frame index: %d", videoplayer.index);
             }
         }
         videoplayer.time0 = currentTime;
@@ -176,6 +187,7 @@ static void videoplayer_handler() {
     NSTimeInterval currentTime = [date timeIntervalSince1970];
     videoplayer.time0 = currentTime;
     videoplayer.restart_count = 0;
+    videoplayer.index = 0;
     
     while(!videoplayer.stop) {
         if(!videoplayer.isopen) {
