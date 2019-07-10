@@ -17,13 +17,11 @@
 
 typedef struct Videoplayer_t {
     dispatch_queue_t queue;
-    int restart;
-    int stop;
+    int is_restart;
+    int is_stop;
     int is_open;
     char uri[256];
     int restart_count;
-    int frame_index;
-    int frame_rate;
     NSTimeInterval time_restart;
     NSTimeInterval time_frame;
     
@@ -36,11 +34,13 @@ typedef struct Videoplayer_t {
     int width;
     int height;
     int stream_index;
+    int frame_index;
+    int frame_rate;
 } Videoplayer_t;
 
 Videoplayer_t videoplayer = {
-    .restart = FALSE,
-    .stop = FALSE,
+    .is_restart = FALSE,
+    .is_stop = FALSE,
     .is_open = FALSE,
     .uri = "",
     .frame_index = 0,
@@ -49,11 +49,18 @@ Videoplayer_t videoplayer = {
 Videoplayer_t *self = &videoplayer;
 
 static int videoplayer_open() {
+//    avcodec_register_all();
+//    av_register_all();
+//    avformat_network_init();
+    
     self->format_ctx = avformat_alloc_context();
     self->frame = av_frame_alloc();
     AVDictionary *opts = NULL;
     av_dict_set(&opts, "stimeout", "6000000", 0);
-//    av_dict_set(&opts, "bufsize", "1024000", 0);
+//    av_dict_set(&opts, "timeout", "6", 0);
+//    av_dict_set(&opts, "stimeout", "3000000", 0);
+    
+    NSLog(@"before avformat_open_input");
     
     int rc = avformat_open_input(&self->format_ctx, self->uri, NULL, &opts);
     
@@ -65,7 +72,7 @@ static int videoplayer_open() {
         return -1;
     }
     
-    self->format_ctx->max_analyze_duration = 0.5 * AV_TIME_BASE;
+    self->format_ctx->max_analyze_duration = 0.1 * AV_TIME_BASE;
     
     rc = avformat_find_stream_info(self->format_ctx, NULL);
     if (rc < 0) {
@@ -92,7 +99,9 @@ static int videoplayer_open() {
     }
     
     AVStream *stream = self->format_ctx->streams[self->stream_index];
-    self->frame_rate = stream->avg_frame_rate.num/stream->avg_frame_rate.den;
+    if(0 != stream->avg_frame_rate.den) {
+        self->frame_rate = stream->avg_frame_rate.num/stream->avg_frame_rate.den;
+    }
     NSLog(@"frame_rate %d", self->frame_rate);
     
     self->codec_ctx = self->format_ctx->streams[self->stream_index]->codec;
@@ -188,7 +197,7 @@ static void videoplayer_rendering() {
         self->time_restart = current_time;
     } else {
         if(self->time_restart + 5.0 < current_time) {
-            self->restart = TRUE;
+            self->is_restart = TRUE;
             self->time_restart = current_time;
             ++self->restart_count;
             NSLog(@"self->restart_count %d", self->restart_count);
@@ -204,8 +213,9 @@ static void videoplayer_handler() {
     self->time_frame = 0;
     self->restart_count = 0;
     self->frame_index = 0;
+    self->frame_rate = 0.1;
     
-    while(!self->stop) {
+    while(!self->is_stop) {
         if(!self->is_open) {
             NSLog(@"videoplayer is not open %s", self->uri);
             if(0 == videoplayer_open()) {
@@ -214,12 +224,16 @@ static void videoplayer_handler() {
             } else {
                 NSLog(@"videoplayer_open %s fail", self->uri);
             }
-            sleep(1.0);
+            if(0 != self->time_frame) {
+                sleep(1.0);
+            }
             continue;
-        } else if(self->restart) {
+        } else if(self->is_restart) {
             videoplayer_close();
-            self->restart = TRUE;
-            sleep(1.0);
+            self->is_restart = TRUE;
+            if(0 != self->time_frame) {
+                sleep(1.0);
+            }
             continue;
         }
         videoplayer_rendering();
@@ -232,18 +246,18 @@ void videoplayer_init() {
 }
 
 void videoplayer_stop() {
-    self->stop = TRUE;
+    self->is_stop = TRUE;
 }
 
 void videoplayer_play(const char *uri) {
     if(strlen(uri) < 4) {
         return;
     }
-    self->stop = TRUE;
+    self->is_stop = TRUE;
     sprintf(self->uri, "%s", uri);
     dispatch_async(self->queue, ^{
         NSLog(@"videoplayer_play %s", self->uri);
-        self->stop = FALSE;
+        self->is_stop = FALSE;
         videoplayer_handler();
     });
 }
