@@ -31,6 +31,7 @@ typedef struct Videoplayer_t {
     int videoHeight;
     int videoStreamIndex;
     NSTimeInterval time0;
+    NSTimeInterval time1;
     int restart_count;
     int index;
     int frame_rate;
@@ -166,8 +167,17 @@ static void videoplayer_rendering() {
                     [ViewController image: image];
                 });
                 ++videoplayer.index;
-                [NSThread sleepForTimeInterval:0.9/videoplayer.frame_rate];
-//                NSLog(@"frame index: %d", videoplayer.index);
+                NSDate *date = [NSDate date];
+                NSTimeInterval time0 = [date timeIntervalSince1970];
+                if(videoplayer.time1 == 0 || videoplayer.time1+(0.9/videoplayer.frame_rate) > time0) {
+                    videoplayer.time1 = time0;
+                    NSLog(@"fast frame index: %d", videoplayer.index);
+                } else {
+                    videoplayer.time1 = time0;
+                    [NSThread sleepForTimeInterval:0.9/videoplayer.frame_rate];
+                    NSLog(@"normal frame index: %d", videoplayer.index);
+                }
+//                [NSThread sleepForTimeInterval:0.9/videoplayer.frame_rate];
             }
         }
         videoplayer.time0 = currentTime;
@@ -186,6 +196,7 @@ static void videoplayer_handler() {
     NSDate *date = [NSDate date];
     NSTimeInterval currentTime = [date timeIntervalSince1970];
     videoplayer.time0 = currentTime;
+    videoplayer.time1 = 0;
     videoplayer.restart_count = 0;
     videoplayer.index = 0;
     
