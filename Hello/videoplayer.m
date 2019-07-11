@@ -25,6 +25,7 @@ typedef struct Videoplayer_t {
     NSTimeInterval time_restart;
     NSTimeInterval time_frame;
     NSTimeInterval time_start;
+    NSTimeInterval time_frame_start;
     
     AVPicture picture;
     AVFormatContext *format_ctx;
@@ -197,18 +198,12 @@ static void videoplayer_rendering() {
                 NSTimeInterval current_time = [[NSDate date] timeIntervalSince1970];
                 NSTimeInterval interval = self->time_frame+1.0/self->frame_rate-current_time;
                 
-//                AVStream *stream = self->format_ctx->streams[self->stream_index];
                 double video_timebase = av_q2d(self->stream->time_base);
                 double timestamp = self->packet.pts * video_timebase;
-                NSLog(@"frame index: %d %f %f", self->frame_index, timestamp, current_time);
-                
-//                if(self->time_frame == 0 || self->time_frame+(0.9/self->frame_rate) > current_time) {
-//                    NSLog(@"fast frame index: %d", self->frame_index);
-//                } else {
-//                    interval = 0.9/self->frame_rate;
-//                    interval = self->time_frame+1.0/self->frame_rate-current_time;
-//                    NSLog(@"normal frame index: %d", self->frame_index);
-//                }
+                if(self->time_frame_start+timestamp+2.0 < current_time) {
+                    interval = 0;
+                }
+                NSLog(@"frame index: %d %f %f", self->frame_index, current_time-self->time_frame_start-timestamp, interval);
                 
                 if(interval > 0) {
                     [NSThread sleepForTimeInterval:interval];
@@ -236,9 +231,9 @@ static void videoplayer_rendering() {
 }
 
 static void videoplayer_handler() {
-    NSDate *date = [NSDate date];
-    NSTimeInterval current_time = [date timeIntervalSince1970];
+    NSTimeInterval current_time = [[NSDate date] timeIntervalSince1970];
     self->time_restart = current_time;
+    self->time_frame_start = current_time;
     self->time_frame = 0;
     self->restart_count = 0;
     self->frame_index = 0;
@@ -248,6 +243,7 @@ static void videoplayer_handler() {
         if(!self->is_open) {
             NSLog(@"videoplayer is not open %s", self->uri);
             if(0 == videoplayer_open()) {
+                self->time_frame_start = [[NSDate date] timeIntervalSince1970];
                 self->is_open = TRUE;
                 NSLog(@"videoplayer_open %s ok", self->uri);
             } else {
