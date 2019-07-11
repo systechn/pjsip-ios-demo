@@ -24,11 +24,13 @@ typedef struct Videoplayer_t {
     int restart_count;
     NSTimeInterval time_restart;
     NSTimeInterval time_frame;
+    NSTimeInterval time_start;
     
     AVPicture picture;
     AVFormatContext *format_ctx;
     AVCodecContext *codec_ctx;
     AVFrame *frame;
+    AVStream *stream;
     struct SwsContext *sws_ctx;
     AVPacket packet;
     int width;
@@ -48,21 +50,29 @@ Videoplayer_t videoplayer = {
 
 Videoplayer_t *self = &videoplayer;
 
+static int videoplayer_callback(void *ctx) {
+    NSTimeInterval current_time = [[NSDate date] timeIntervalSince1970];
+    if(0 != self->time_start && current_time > self->time_start) {
+        NSLog(@"videoplayer_callback timeout");
+        return 1;
+    }
+    return 0;
+}
+
 static int videoplayer_open() {
-//    avcodec_register_all();
-//    av_register_all();
-//    avformat_network_init();
     
     self->format_ctx = avformat_alloc_context();
+    self->format_ctx->interrupt_callback.callback = videoplayer_callback;
+    self->format_ctx->interrupt_callback.opaque = self;
+    
     self->frame = av_frame_alloc();
     AVDictionary *opts = NULL;
-    av_dict_set(&opts, "stimeout", "6000000", 0);
-//    av_dict_set(&opts, "timeout", "6", 0);
-//    av_dict_set(&opts, "stimeout", "3000000", 0);
     
     NSLog(@"before avformat_open_input");
     
+    self->time_start = [[NSDate date] timeIntervalSince1970] + 3.0;
     int rc = avformat_open_input(&self->format_ctx, self->uri, NULL, &opts);
+    self->time_start = 0;
     
     NSLog(@"after avformat_open_input");
     if (rc < 0){
@@ -72,8 +82,9 @@ static int videoplayer_open() {
         return -1;
     }
     
-    self->format_ctx->max_analyze_duration = 0.1 * AV_TIME_BASE;
+    self->format_ctx->max_analyze_duration = 1.0 * AV_TIME_BASE;
     
+    self->time_start = [[NSDate date] timeIntervalSince1970] + 3.0;
     rc = avformat_find_stream_info(self->format_ctx, NULL);
     if (rc < 0) {
         NSLog(@"avformat_find_stream_info < 0");
@@ -81,6 +92,7 @@ static int videoplayer_open() {
         av_frame_free(&self->frame);
         return -1;
     }
+    self->time_start = 0;
     
     NSLog(@"after avformat_find_stream_info");
     self->stream_index = -1;
@@ -98,15 +110,22 @@ static int videoplayer_open() {
         return -1;
     }
     
-    AVStream *stream = self->format_ctx->streams[self->stream_index];
-    if(0 != stream->avg_frame_rate.den) {
-        self->frame_rate = stream->avg_frame_rate.num/stream->avg_frame_rate.den;
+    self->stream = self->format_ctx->streams[self->stream_index];
+    if(0 != self->stream->avg_frame_rate.den) {
+        self->frame_rate = self->stream->avg_frame_rate.num/self->stream->avg_frame_rate.den;
     }
     NSLog(@"frame_rate %d", self->frame_rate);
     
     self->codec_ctx = self->format_ctx->streams[self->stream_index]->codec;
     self->width = self->codec_ctx->width;
     self->height = self->codec_ctx->height;
+    
+    if(self->width <= 0 || self->height <= 0) {
+        avformat_free_context(self->format_ctx);
+        av_frame_free(&self->frame);
+        NSLog(@"invalid size width: %d, height: %d", self->width, self->height);
+        return -1;
+    }
     
     avpicture_alloc(&self->picture, AV_PIX_FMT_RGB24, self->width, self->height);
     
@@ -145,6 +164,8 @@ static void videoplayer_rendering() {
     NSDate *date = [NSDate date];
     NSTimeInterval current_time = [date timeIntervalSince1970];
     
+    self->time_start = [[NSDate date] timeIntervalSince1970] + 3.0;
+    
     if (av_read_frame(self->format_ctx, &self->packet) >= 0){
         if(self->packet.stream_index == self->stream_index){
             avcodec_decode_video2(self->codec_ctx, self->frame, &frame_finished, &self->packet);
@@ -173,25 +194,32 @@ static void videoplayer_rendering() {
                 CGDataProviderRelease(provider);
                 CFRelease(data);
                 
+                NSTimeInterval current_time = [[NSDate date] timeIntervalSince1970];
+                NSTimeInterval interval = self->time_frame+1.0/self->frame_rate-current_time;
+                
+//                AVStream *stream = self->format_ctx->streams[self->stream_index];
+                double video_timebase = av_q2d(self->stream->time_base);
+                double timestamp = self->packet.pts * video_timebase;
+                NSLog(@"frame index: %d %f %f", self->frame_index, timestamp, current_time);
+                
+//                if(self->time_frame == 0 || self->time_frame+(0.9/self->frame_rate) > current_time) {
+//                    NSLog(@"fast frame index: %d", self->frame_index);
+//                } else {
+//                    interval = 0.9/self->frame_rate;
+//                    interval = self->time_frame+1.0/self->frame_rate-current_time;
+//                    NSLog(@"normal frame index: %d", self->frame_index);
+//                }
+                
+                if(interval > 0) {
+                    [NSThread sleepForTimeInterval:interval];
+                }
+                
                 dispatch_queue_t queue = dispatch_get_main_queue();
                 dispatch_async(queue, ^{
                     [ViewController image: image];
                 });
                 ++self->frame_index;
-                NSDate *date = [NSDate date];
-                NSTimeInterval current_time = [date timeIntervalSince1970];
-                NSTimeInterval interval = 0;
-                
-                if(self->time_frame == 0 || self->time_frame+(0.9/self->frame_rate) > current_time) {
-                    NSLog(@"fast frame index: %d", self->frame_index);
-                } else {
-                    interval = 0.9/self->frame_rate;
-                    NSLog(@"normal frame index: %d", self->frame_index);
-                }
-                self->time_frame = current_time;
-                if(interval > 0) {
-                    [NSThread sleepForTimeInterval:interval];
-                }
+                self->time_frame = [[NSDate date] timeIntervalSince1970];
             }
         }
         self->time_restart = current_time;
@@ -204,6 +232,7 @@ static void videoplayer_rendering() {
         }
     }
     av_free_packet(&self->packet);
+    self->time_start = 0;
 }
 
 static void videoplayer_handler() {
@@ -213,7 +242,7 @@ static void videoplayer_handler() {
     self->time_frame = 0;
     self->restart_count = 0;
     self->frame_index = 0;
-    self->frame_rate = 0.1;
+    self->frame_rate = 1.0;
     
     while(!self->is_stop) {
         if(!self->is_open) {
