@@ -24,7 +24,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7il-Eo-q8I">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTr-L3-nbd">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VoIP Info" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTr-L3-nbd">
                                                 <rect key="frame" x="3" y="10" width="408" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="VbR-2o-vM5"/>
@@ -33,7 +33,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGS-tp-ZTR">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VoIP Status" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGS-tp-ZTR">
                                                 <rect key="frame" x="3" y="55" width="408" height="56"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="32P-6X-W8R"/>
@@ -114,7 +114,7 @@
                                                 </connections>
                                             </button>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="rtmp://hk.systec-pbx.net/live/knHB1UhB5BekDAjMQPD2ke0VFFoL12c1" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O1s-D6-8OJ">
-                                                <rect key="frame" x="3" y="441" width="408" height="50"/>
+                                                <rect key="frame" x="3" y="431" width="408" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="XFP-33-piz"/>
@@ -123,25 +123,31 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yt6-ho-y7g">
-                                                <rect key="frame" x="142" y="511" width="30" height="30"/>
+                                                <rect key="frame" x="142" y="501" width="30" height="30"/>
                                                 <state key="normal" title="Play"/>
                                                 <connections>
                                                     <action selector="onPlay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Kp-Ab-JGs"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="av0-83-DZf">
-                                                <rect key="frame" x="241" y="511" width="32" height="30"/>
+                                                <rect key="frame" x="241" y="501" width="32" height="30"/>
                                                 <state key="normal" title="Stop"/>
                                                 <connections>
                                                     <action selector="onStop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LBT-Oz-c3b"/>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gmW-oB-NjT">
-                                                <rect key="frame" x="3" y="561" width="408" height="240"/>
+                                                <rect key="frame" x="3" y="551" width="408" height="240"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="240" id="U2c-YX-1X2"/>
                                                 </constraints>
                                             </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Video Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ns6-a4-jYe">
+                                                <rect key="frame" x="3" y="796" width="408" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -157,7 +163,7 @@
                                             <constraint firstItem="5CI-Dg-0Cr" firstAttribute="top" secondItem="yCK-9d-Nvo" secondAttribute="bottom" constant="20" id="JVr-eO-Oop"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5CI-Dg-0Cr" secondAttribute="trailing" constant="3" id="MSX-Iw-ebC"/>
                                             <constraint firstAttribute="trailing" secondItem="yCK-9d-Nvo" secondAttribute="trailing" constant="3" id="NiF-qp-CmJ"/>
-                                            <constraint firstItem="O1s-D6-8OJ" firstAttribute="top" secondItem="52c-wz-Wab" secondAttribute="bottom" constant="30" id="OqY-g6-y7H"/>
+                                            <constraint firstItem="O1s-D6-8OJ" firstAttribute="top" secondItem="52c-wz-Wab" secondAttribute="bottom" constant="20" id="OqY-g6-y7H"/>
                                             <constraint firstAttribute="height" constant="896" id="PnF-OO-7aD"/>
                                             <constraint firstItem="yt6-ho-y7g" firstAttribute="centerX" secondItem="7il-Eo-q8I" secondAttribute="centerX" constant="-50" id="Pwa-ja-UP1"/>
                                             <constraint firstItem="gmW-oB-NjT" firstAttribute="leading" secondItem="7il-Eo-q8I" secondAttribute="leading" constant="3" id="PyC-hk-ExK"/>
@@ -166,14 +172,17 @@
                                             <constraint firstItem="utS-lT-ZIM" firstAttribute="centerX" secondItem="7il-Eo-q8I" secondAttribute="centerX" constant="-40" id="Ssv-oW-xPx"/>
                                             <constraint firstItem="yt6-ho-y7g" firstAttribute="top" secondItem="O1s-D6-8OJ" secondAttribute="bottom" constant="20" id="Vpa-Lh-97R"/>
                                             <constraint firstAttribute="trailing" secondItem="GTr-L3-nbd" secondAttribute="trailing" constant="3" id="VxT-ET-7Ke"/>
+                                            <constraint firstItem="ns6-a4-jYe" firstAttribute="leading" secondItem="7il-Eo-q8I" secondAttribute="leading" constant="3" id="X65-k6-cUq"/>
                                             <constraint firstItem="av0-83-DZf" firstAttribute="top" secondItem="O1s-D6-8OJ" secondAttribute="bottom" constant="20" id="a8W-Rw-PcK"/>
                                             <constraint firstItem="vOm-IL-xhz" firstAttribute="top" secondItem="hGS-tp-ZTR" secondAttribute="bottom" constant="20" id="ank-Fm-IlM"/>
+                                            <constraint firstItem="ns6-a4-jYe" firstAttribute="top" secondItem="gmW-oB-NjT" secondAttribute="bottom" constant="5" id="bVx-4M-POS"/>
                                             <constraint firstItem="Dmm-9l-9qi" firstAttribute="top" secondItem="vOm-IL-xhz" secondAttribute="bottom" constant="20" id="cF4-wo-IHR"/>
                                             <constraint firstAttribute="trailing" secondItem="hGS-tp-ZTR" secondAttribute="trailing" constant="3" id="cGT-pT-UgI"/>
                                             <constraint firstItem="GTr-L3-nbd" firstAttribute="top" secondItem="7il-Eo-q8I" secondAttribute="top" constant="10" id="fjt-Ee-5Ag"/>
                                             <constraint firstItem="mO1-Gr-p5a" firstAttribute="top" secondItem="yCK-9d-Nvo" secondAttribute="bottom" constant="20" id="hKh-zk-bZ6"/>
                                             <constraint firstItem="z6E-0b-FP3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7il-Eo-q8I" secondAttribute="leading" constant="3" id="hgN-kk-cjw"/>
                                             <constraint firstItem="yCK-9d-Nvo" firstAttribute="top" secondItem="Dmm-9l-9qi" secondAttribute="bottom" constant="20" id="j7Q-wy-kBR"/>
+                                            <constraint firstAttribute="trailing" secondItem="ns6-a4-jYe" secondAttribute="trailing" constant="3" id="ls0-Nm-mov"/>
                                             <constraint firstItem="52c-wz-Wab" firstAttribute="top" secondItem="7vS-WZ-vCe" secondAttribute="bottom" constant="20" id="oKY-Q1-O7B"/>
                                             <constraint firstAttribute="trailing" secondItem="O1s-D6-8OJ" secondAttribute="trailing" constant="3" id="qId-he-5sE"/>
                                             <constraint firstItem="7vS-WZ-vCe" firstAttribute="top" secondItem="z6E-0b-FP3" secondAttribute="bottom" constant="20" id="rpO-1L-XZY"/>
@@ -219,6 +228,7 @@
                         <outlet property="sipId" destination="Dmm-9l-9qi" id="mYv-I3-2qP"/>
                         <outlet property="status" destination="hGS-tp-ZTR" id="9Uf-dE-40C"/>
                         <outlet property="video" destination="gmW-oB-NjT" id="cag-SK-ZzS"/>
+                        <outlet property="videoStatus" destination="ns6-a4-jYe" id="PTB-xd-jrq"/>
                         <outlet property="videoUrl" destination="O1s-D6-8OJ" id="1gS-ub-5rb"/>
                     </connections>
                 </viewController>

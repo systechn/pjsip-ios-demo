@@ -41,6 +41,15 @@ typedef struct Videoplayer_t {
     NSObject<VideoPlayerHandler> *handler;
 } Videoplayer_t;
 
+static void videoplayer_send_message(Videoplayer_t *self, const char *data) {
+    NSString *label =[NSString stringWithFormat:@"%s", data];
+    
+    dispatch_queue_t queue = dispatch_get_main_queue();
+    dispatch_async(queue, ^{
+        [self->handler videoPlayerMessageHandler: label];
+    });
+}
+
 static int videoplayer_callback(void *player) {
     Videoplayer_t *self = (Videoplayer_t *)player;
     NSTimeInterval current_time = [[NSDate date] timeIntervalSince1970];
@@ -233,14 +242,18 @@ static void videoplayer_handler(Videoplayer_t *self) {
     self->frame_index = 0;
     self->frame_rate = 1.0;
     
+    videoplayer_send_message(self, "videoplayer play");
+    
     while(!self->is_stop) {
         if(!self->is_open) {
             if(0 == videoplayer_open(self)) {
                 self->time_frame_start = [[NSDate date] timeIntervalSince1970];
                 self->is_open = TRUE;
                 NSLog(@"videoplayer_open %s ok", self->uri);
+                videoplayer_send_message(self, "videoplayer open ok");
             } else {
                 NSLog(@"videoplayer_open %s fail", self->uri);
+                videoplayer_send_message(self, "videoplayer open fail");
             }
             if(0 != self->time_frame) {
                 sleep(1.0);
@@ -258,6 +271,7 @@ static void videoplayer_handler(Videoplayer_t *self) {
     }
     videoplayer_close(self);
     NSLog(@"videoplayer_stop %s ok", self->uri);
+    videoplayer_send_message(self, "videoplayer stop ok");
     free(self);
 }
 

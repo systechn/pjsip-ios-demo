@@ -10,8 +10,8 @@ import UIKit
 
 @objc class VoipManager: NSObject {
     
-    static let queue = DispatchQueue(label: "com.systec.VoipManager", attributes: .concurrent)
-    static var set = Set<NSObject>()
+    fileprivate static let queue = DispatchQueue(label: "com.systec.VoipManager", attributes: .concurrent)
+    fileprivate static var set = Set<NSObject>()
     
     @objc(sendMessage:data:) static func sendMessage(action: Int, data: String) {
         queue.sync {
@@ -24,13 +24,13 @@ import UIKit
     
     @objc(addCallback:) static func addCallback(callback: NSObject) {
         queue.async(flags: .barrier) {
-            VoipManager.set.insert(callback)
+            set.insert(callback)
         }
     }
     
     @objc(removeCallback:) static func removeCallback(callback: NSObject) {
         queue.async(flags: .barrier) {
-            VoipManager.set.remove(callback)
+            set.remove(callback)
         }
     }
 }

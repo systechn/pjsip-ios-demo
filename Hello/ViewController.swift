@@ -21,6 +21,7 @@ class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
     
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var videoStatus: UILabel!
     
     var videoPlaying:Bool = false
     
@@ -49,7 +50,7 @@ class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
     }
     
     func videoPlayerMessageHandler(data: String) {
-        print(data)
+        videoStatus.text = data
     }
     
     @IBAction func onRegister(_ sender: Any) {
