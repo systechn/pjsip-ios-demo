@@ -14,24 +14,25 @@
 
 #define THIS_FILE "voip"
 
+enum {
+    VOIP_INVALID_ID = -1,
+};
+
 typedef struct Voip_t {
     pjsua_acc_id acc_id;
     pjsua_call_id call_id;
     pjsua_call_id call_id_out;
+    NSString *label;
 } Voip_t;
 
-static Voip_t voip = {
-    .acc_id = -1,
-    .call_id = -1,
-    .call_id_out = -1,
-};
+static Voip_t *self;
 
 static void change_ui_status(const char *status) {
-    NSString *label =[NSString stringWithFormat:@"%s", status];
+    self->label =[NSString stringWithFormat:@"%s", status];
     
     dispatch_queue_t queue = dispatch_get_main_queue();
     dispatch_async(queue, ^{
-        [VoipManager sendMessage: 0 data: label];
+        [VoipManager sendMessage: 0 data: self->label];
     });
 }
 
@@ -49,9 +50,9 @@ static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_r
 //    pjsua_call_answer(call_id, 200, NULL, NULL);
     
     
-    if(-1 == voip.call_id && -1 == voip.call_id_out) {
+    if(VOIP_INVALID_ID == self->call_id && VOIP_INVALID_ID == self->call_id_out) {
         AudioServicesPlaySystemSound(1109); /* shake */
-        voip.call_id = call_id;
+        self->call_id = call_id;
         pjsua_call_answer(call_id, 180 /* ring */, NULL, NULL);
     }
     
@@ -70,8 +71,8 @@ static void on_call_state(pjsua_call_id call_id, pjsip_event *e) {
 //    char buf[512] = "";
 //    sprintf(buf, "Call %d state=%.*s", (int)ci.state_text.slen, ci.state_text.ptr);
     if(PJSIP_INV_STATE_DISCONNECTED == ci.state) {
-        voip.call_id = -1;
-        voip.call_id_out = -1;
+        self->call_id = VOIP_INVALID_ID;
+        self->call_id_out = VOIP_INVALID_ID;
     } else if (PJSIP_INV_STATE_EARLY == ci.state) {
         AudioServicesPlaySystemSound(1109);
     }
@@ -116,8 +117,8 @@ int voip_account_update(const char *domain, const char *user, const char *passwd
     cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
     cfg.cred_info[0].data = pj_str((char *)passwd);
 //    pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
-    pjsua_acc_modify(voip.acc_id, &cfg);
-    status = pjsua_acc_set_registration(voip.acc_id, 1);
+    pjsua_acc_modify(self->acc_id, &cfg);
+    status = pjsua_acc_set_registration(self->acc_id, 1);
 //    pjsua_acc_set_online_status(acc_id, 1);
     if (status != PJ_SUCCESS) {
         PJ_LOG(3,(THIS_FILE, "registration %s error", sip_id));
@@ -138,7 +139,7 @@ int voip_account_unregister() {
     const char *local_id = "sip:127.0.0.1";
     
     cfg.id = pj_str((char *)local_id); /* local account */
-    status = pjsua_acc_modify(voip.acc_id, &cfg);
+    status = pjsua_acc_modify(self->acc_id, &cfg);
     
     if (status != PJ_SUCCESS) {
         PJ_LOG(3,(THIS_FILE, "add account %s error", local_id));
@@ -149,6 +150,11 @@ int voip_account_unregister() {
 }
 
 void voip_start(unsigned port) {
+    self = calloc(1, sizeof(Voip_t));
+    self->acc_id = VOIP_INVALID_ID;
+    self->call_id = VOIP_INVALID_ID;
+    self->call_id_out = VOIP_INVALID_ID;
+    
     pj_status_t status;
     pjsua_transport_id utid;
     
@@ -189,7 +195,7 @@ void voip_start(unsigned port) {
     const char *local_id = "sip:127.0.0.1";
     
     cfg.id = pj_str((char *)local_id); /* local account */
-    status = pjsua_acc_add(&cfg, PJ_TRUE, &voip.acc_id);
+    status = pjsua_acc_add(&cfg, PJ_TRUE, &self->acc_id);
     
     if (status != PJ_SUCCESS) {
         PJ_LOG(3,(THIS_FILE, "add account %s error", local_id));
@@ -200,11 +206,11 @@ void voip_start(unsigned port) {
     pjsua_transport_info ti;
     pjsua_transport_get_info(utid, &ti);
     
-    NSString *label =[NSString stringWithFormat:@"%s:%d", ti.local_name.host.ptr, ti.local_name.port];
+    self->label =[NSString stringWithFormat:@"%s:%d", ti.local_name.host.ptr, ti.local_name.port];
     
     dispatch_queue_t queue = dispatch_get_main_queue();
     dispatch_async(queue, ^{
-        [VoipManager sendMessage: 1 data: label];
+        [VoipManager sendMessage: 1 data: self->label];
     });
     
     PJ_LOG(3,(THIS_FILE, "published address is %s:%d", ti.local_name.host.ptr, ti.local_name.port));
@@ -212,29 +218,29 @@ void voip_start(unsigned port) {
 
 void voip_hangup() {
     pjsua_call_hangup_all();
-    voip.call_id = -1;
-    voip.call_id_out = -1;
+    self->call_id = VOIP_INVALID_ID;
+    self->call_id_out = VOIP_INVALID_ID;
 }
 
 void voip_answer() {
-    PJ_LOG(3,(THIS_FILE, "voip_answer %d", voip.call_id));
-    if(-1 != voip.call_id && -1 == voip.call_id_out) {
-        pjsua_call_answer(voip.call_id, 200, NULL, NULL);
+    PJ_LOG(3,(THIS_FILE, "voip_answer %d", self->call_id));
+    if(VOIP_INVALID_ID != self->call_id && VOIP_INVALID_ID == self->call_id_out) {
+        pjsua_call_answer(self->call_id, 200, NULL, NULL);
     }
 }
 
 void voip_call(const char *uri) {
-    if(-1 != voip.call_id_out || -1 != voip.call_id) {
+    if(VOIP_INVALID_ID != self->call_id_out || VOIP_INVALID_ID != self->call_id) {
         voip_hangup();
     }
     pjsua_call_id call_id;
     pj_status_t status;
     pj_str_t callee_uri = pj_str((char *)uri);
-    status = pjsua_call_make_call(voip.acc_id, &callee_uri, 0, NULL, NULL, &call_id);
+    status = pjsua_call_make_call(self->acc_id, &callee_uri, 0, NULL, NULL, &call_id);
     if (status != PJ_SUCCESS) {
         PJ_LOG(3,(THIS_FILE, "call %s error", uri));
     } else {
-        voip.call_id_out = call_id;
+        self->call_id_out = call_id;
         PJ_LOG(3,(THIS_FILE, "call %s ok", uri));
     }
 }
