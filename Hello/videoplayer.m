@@ -39,15 +39,14 @@ typedef struct Videoplayer_t {
     int frame_index;
     int frame_rate;
     NSObject<VideoPlayerHandler> *handler;
-    NSString *label;
 } Videoplayer_t;
 
 static void videoplayer_send_message(Videoplayer_t *self, const char *data) {
-    self->label =[NSString stringWithFormat:@"%s", data];
+    __block NSString *label = [[NSString alloc] initWithUTF8String: data];
     
     dispatch_queue_t queue = dispatch_get_main_queue();
-    dispatch_async(queue, ^{
-        [self->handler videoPlayerMessageHandler: self->label];
+    dispatch_sync(queue, ^{
+        [self->handler videoPlayerMessageHandler: label];
     });
 }
 

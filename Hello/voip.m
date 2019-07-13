@@ -22,17 +22,16 @@ typedef struct Voip_t {
     pjsua_acc_id acc_id;
     pjsua_call_id call_id;
     pjsua_call_id call_id_out;
-    NSString *label;
 } Voip_t;
 
 static Voip_t *self;
 
-static void change_ui_status(const char *status) {
-    self->label =[NSString stringWithFormat:@"%s", status];
+static void change_ui_status(const char *data) {
+    __block NSString *label = [[NSString alloc] initWithUTF8String: data];
     
     dispatch_queue_t queue = dispatch_get_main_queue();
     dispatch_async(queue, ^{
-        [VoipManager sendMessage: 0 data: self->label];
+        [VoipManager sendMessage: 0 data: label];
     });
 }
 
@@ -206,11 +205,11 @@ void voip_start(unsigned port) {
     pjsua_transport_info ti;
     pjsua_transport_get_info(utid, &ti);
     
-    self->label =[NSString stringWithFormat:@"%s:%d", ti.local_name.host.ptr, ti.local_name.port];
+    __block NSString *label = [[NSString alloc] initWithFormat:@"%s:%d", ti.local_name.host.ptr, ti.local_name.port];
     
     dispatch_queue_t queue = dispatch_get_main_queue();
     dispatch_async(queue, ^{
-        [VoipManager sendMessage: 1 data: self->label];
+        [VoipManager sendMessage: 1 data: label];
     });
     
     PJ_LOG(3,(THIS_FILE, "published address is %s:%d", ti.local_name.host.ptr, ti.local_name.port));
