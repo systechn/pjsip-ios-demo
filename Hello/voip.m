@@ -31,18 +31,9 @@ static void change_ui_status(const char *status) {
     
     dispatch_queue_t queue = dispatch_get_main_queue();
     dispatch_async(queue, ^{
-        [ViewController status: label];
+        [VoipManager sendMessage: 0 data: label];
     });
 }
-
-//static void change_ui_info(const char *status) {
-//    NSString *label =[NSString stringWithFormat:@"%s", status];
-//
-//    dispatch_queue_t queue = dispatch_get_main_queue();
-//    dispatch_async(queue, ^{
-//        [ViewController info: label];
-//    });
-//}
 
 static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_rx_data *rdata) {
     pjsua_call_info ci;
@@ -213,7 +204,7 @@ void voip_start(unsigned port) {
     
     dispatch_queue_t queue = dispatch_get_main_queue();
     dispatch_async(queue, ^{
-        [ViewController info: label];
+        [VoipManager sendMessage: 1 data: label];
     });
     
     PJ_LOG(3,(THIS_FILE, "published address is %s:%d", ti.local_name.host.ptr, ti.local_name.port));

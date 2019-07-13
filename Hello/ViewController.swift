@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
 
     @IBOutlet weak var domain: UITextField!
     @IBOutlet weak var sipId: UITextField!
@@ -22,8 +22,6 @@ class ViewController: UIViewController {
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     
-    static var demo:ViewController? = nil
-    
     var videoPlaying:Bool = false
     
     var player:UnsafeMutableRawPointer? = nil
@@ -31,14 +29,27 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        VoipManager.addCallback(callback: self)
     }
     
-    @objc(status:) static func status(data: String) {
-        ViewController.demo?.status.text = data
+    override func viewDidDisappear(_ animated: Bool) {
+        VoipManager.removeCallback(callback: self)
     }
     
-    @objc(info:) static func info(data: String) {
-        ViewController.demo?.info.text = data
+    func voipHandler(action: Int, data: String) {
+        if 0 == action {
+            status.text = data
+        } else if 1 == action {
+            info.text = data
+        }
+    }
+    
+    func videoPlayerHandler(image: UIImage) {
+        video.image = image
+    }
+    
+    func videoPlayerMessageHandler(data: String) {
+        print(data)
     }
     
     @IBAction func onRegister(_ sender: Any) {
@@ -70,7 +81,7 @@ class ViewController: UIViewController {
         }
         videoPlaying = true
         video.image = nil
-        player = videoplayer_play(video, videoUrl.text)
+        player = videoplayer_play(self, videoUrl.text)
     }
     
     @IBAction func onStop(_ sender: Any) {

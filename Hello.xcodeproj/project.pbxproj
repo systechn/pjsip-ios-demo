@@ -20,6 +20,9 @@
 		CE66892822D090F700C61892 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66892722D090F700C61892 /* VideoToolbox.framework */; };
 		CE66892A22D091B100C61892 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66892922D091B100C61892 /* CoreMedia.framework */; };
 		CE66892C22D0A09600C61892 /* videoplayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE66892B22D0A09600C61892 /* videoplayer.m */; };
+		CE868FDB22D9CBB9007F9F16 /* MessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE868FDA22D9CBB9007F9F16 /* MessageHandler.swift */; };
+		CE868FDD22D9E018007F9F16 /* SafeArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE868FDC22D9E018007F9F16 /* SafeArray.swift */; };
+		CE868FDF22D9E1A3007F9F16 /* VoipManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE868FDE22D9E1A3007F9F16 /* VoipManager.swift */; };
 		CECD15BD22CF6430007D3497 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD15BC22CF6430007D3497 /* AppDelegate.swift */; };
 		CECD15BF22CF6430007D3497 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD15BE22CF6430007D3497 /* ViewController.swift */; };
 		CECD15C222CF6430007D3497 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECD15C022CF6430007D3497 /* Main.storyboard */; };
@@ -66,6 +69,9 @@
 		CE66892922D091B100C61892 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		CE66892B22D0A09600C61892 /* videoplayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = videoplayer.m; sourceTree = "<group>"; };
 		CE66892D22D0A0B000C61892 /* videoplayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = videoplayer.h; sourceTree = "<group>"; };
+		CE868FDA22D9CBB9007F9F16 /* MessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHandler.swift; sourceTree = "<group>"; };
+		CE868FDC22D9E018007F9F16 /* SafeArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeArray.swift; sourceTree = "<group>"; };
+		CE868FDE22D9E1A3007F9F16 /* VoipManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoipManager.swift; sourceTree = "<group>"; };
 		CECD15B922CF6430007D3497 /* Hello.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hello.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECD15BC22CF6430007D3497 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CECD15BE22CF6430007D3497 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +184,9 @@
 				CECD160022CF65FA007D3497 /* voip.h */,
 				CE66892B22D0A09600C61892 /* videoplayer.m */,
 				CE66892D22D0A0B000C61892 /* videoplayer.h */,
+				CE868FDA22D9CBB9007F9F16 /* MessageHandler.swift */,
+				CE868FDC22D9E018007F9F16 /* SafeArray.swift */,
+				CE868FDE22D9E1A3007F9F16 /* VoipManager.swift */,
 			);
 			path = Hello;
 			sourceTree = "<group>";
@@ -303,8 +312,11 @@
 			files = (
 				CE66892C22D0A09600C61892 /* videoplayer.m in Sources */,
 				CECD15FF22CF65DF007D3497 /* voip.m in Sources */,
+				CE868FDB22D9CBB9007F9F16 /* MessageHandler.swift in Sources */,
 				CECD15BF22CF6430007D3497 /* ViewController.swift in Sources */,
+				CE868FDD22D9E018007F9F16 /* SafeArray.swift in Sources */,
 				CECD15BD22CF6430007D3497 /* AppDelegate.swift in Sources */,
+				CE868FDF22D9E1A3007F9F16 /* VoipManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

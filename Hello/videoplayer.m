@@ -38,7 +38,7 @@ typedef struct Videoplayer_t {
     int stream_index;
     int frame_index;
     int frame_rate;
-    UIImageView *view;
+    NSObject<VideoPlayerHandler> *handler;
 } Videoplayer_t;
 
 static int videoplayer_callback(void *player) {
@@ -202,10 +202,10 @@ static void videoplayer_rendering(Videoplayer_t *self) {
                 
                 dispatch_queue_t queue = dispatch_get_main_queue();
                 dispatch_async(queue, ^{
-                    UIImageView *imageView = self->view;
                     if(!self->is_stop) {
-                        imageView.image = image;
+                        [self->handler videoPlayerHandler: image];
                     }
+//                    [self->handler messageHandlerWithData: @"hello"];
                 });
                 ++self->frame_index;
                 self->time_frame = [[NSDate date] timeIntervalSince1970];
@@ -266,14 +266,14 @@ void videoplayer_stop(void *player) {
     self->is_stop = TRUE;
 }
 
-void *videoplayer_play(UIImageView *view, const char *uri) {
+void *videoplayer_play(NSObject *handler, const char *uri) {
     Videoplayer_t *self = calloc(1, sizeof(Videoplayer_t));
     self->is_restart = FALSE;
     self->is_stop = FALSE;
     self->is_open = FALSE;
     self->uri[0] = '\0';
     self->frame_index = 0;
-    self->view = view;
+    self->handler = (NSObject<VideoPlayerHandler> *)handler;
     
     sprintf(self->uri, "%s", uri);
     dispatch_queue_t queue = dispatch_queue_create("systec.Hello.videoplayer", DISPATCH_QUEUE_SERIAL);
