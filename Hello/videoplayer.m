@@ -16,7 +16,6 @@
 #include "libavutil/frame.h"
 
 typedef struct Videoplayer_t {
-    dispatch_queue_t queue;
     int is_restart;
     int is_stop;
     int is_open;
@@ -39,19 +38,11 @@ typedef struct Videoplayer_t {
     int stream_index;
     int frame_index;
     int frame_rate;
+    UIImageView *view;
 } Videoplayer_t;
 
-Videoplayer_t videoplayer = {
-    .is_restart = FALSE,
-    .is_stop = FALSE,
-    .is_open = FALSE,
-    .uri = "",
-    .frame_index = 0,
-};
-
-Videoplayer_t *self = &videoplayer;
-
-static int videoplayer_callback(void *ctx) {
+static int videoplayer_callback(void *player) {
+    Videoplayer_t *self = (Videoplayer_t *)player;
     NSTimeInterval current_time = [[NSDate date] timeIntervalSince1970];
     if(0 != self->time_start && current_time > self->time_start) {
         NSLog(@"videoplayer_callback timeout");
@@ -60,7 +51,7 @@ static int videoplayer_callback(void *ctx) {
     return 0;
 }
 
-static int videoplayer_open() {
+static int videoplayer_open(Videoplayer_t *self) {
     
     self->format_ctx = avformat_alloc_context();
     self->format_ctx->interrupt_callback.callback = videoplayer_callback;
@@ -148,7 +139,7 @@ static int videoplayer_open() {
     return 0;
 }
 
-static int videoplayer_close() {
+static int videoplayer_close(Videoplayer_t *self) {
     if(self->is_open) {
         avformat_free_context(self->format_ctx);
         av_frame_free(&self->frame);
@@ -159,7 +150,7 @@ static int videoplayer_close() {
     return 0;
 }
 
-static void videoplayer_rendering() {
+static void videoplayer_rendering(Videoplayer_t *self) {
     int frame_finished = FALSE;
     
     NSDate *date = [NSDate date];
@@ -211,7 +202,10 @@ static void videoplayer_rendering() {
                 
                 dispatch_queue_t queue = dispatch_get_main_queue();
                 dispatch_async(queue, ^{
-                    [ViewController image: image];
+                    UIImageView *imageView = self->view;
+                    if(!self->is_stop) {
+                        imageView.image = image;
+                    }
                 });
                 ++self->frame_index;
                 self->time_frame = [[NSDate date] timeIntervalSince1970];
@@ -230,7 +224,7 @@ static void videoplayer_rendering() {
     self->time_start = 0;
 }
 
-static void videoplayer_handler() {
+static void videoplayer_handler(Videoplayer_t *self) {
     NSTimeInterval current_time = [[NSDate date] timeIntervalSince1970];
     self->time_restart = current_time;
     self->time_frame_start = current_time;
@@ -241,8 +235,7 @@ static void videoplayer_handler() {
     
     while(!self->is_stop) {
         if(!self->is_open) {
-            NSLog(@"videoplayer is not open %s", self->uri);
-            if(0 == videoplayer_open()) {
+            if(0 == videoplayer_open(self)) {
                 self->time_frame_start = [[NSDate date] timeIntervalSince1970];
                 self->is_open = TRUE;
                 NSLog(@"videoplayer_open %s ok", self->uri);
@@ -254,35 +247,39 @@ static void videoplayer_handler() {
             }
             continue;
         } else if(self->is_restart) {
-            videoplayer_close();
+            videoplayer_close(self);
             self->is_restart = TRUE;
             if(0 != self->time_frame) {
                 sleep(1.0);
             }
             continue;
         }
-        videoplayer_rendering();
+        videoplayer_rendering(self);
     }
-    videoplayer_close();
+    videoplayer_close(self);
+    NSLog(@"videoplayer_stop %s ok", self->uri);
+    free(self);
 }
 
-void videoplayer_init() {
-    self->queue = dispatch_queue_create("systec.Hello.videoplayer", DISPATCH_QUEUE_SERIAL);
-}
-
-void videoplayer_stop() {
+void videoplayer_stop(void *player) {
+    Videoplayer_t *self = (Videoplayer_t *)player;
     self->is_stop = TRUE;
 }
 
-void videoplayer_play(const char *uri) {
-    if(strlen(uri) < 4) {
-        return;
-    }
-    self->is_stop = TRUE;
+void *videoplayer_play(UIImageView *view, const char *uri) {
+    Videoplayer_t *self = calloc(1, sizeof(Videoplayer_t));
+    self->is_restart = FALSE;
+    self->is_stop = FALSE;
+    self->is_open = FALSE;
+    self->uri[0] = '\0';
+    self->frame_index = 0;
+    self->view = view;
+    
     sprintf(self->uri, "%s", uri);
-    dispatch_async(self->queue, ^{
+    dispatch_queue_t queue = dispatch_queue_create("systec.Hello.videoplayer", DISPATCH_QUEUE_SERIAL);
+    dispatch_async(queue, ^{
         NSLog(@"videoplayer_play %s", self->uri);
-        self->is_stop = FALSE;
-        videoplayer_handler();
+        videoplayer_handler(self);
     });
+    return (void *)self;
 }

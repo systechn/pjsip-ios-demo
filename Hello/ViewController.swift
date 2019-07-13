@@ -24,22 +24,13 @@ class ViewController: UIViewController {
     
     static var demo:ViewController? = nil
     
-    static var videoPlaying:Bool = false
+    var videoPlaying:Bool = false
+    
+    var player:UnsafeMutableRawPointer? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        ViewController.demo = self
-    }
-    
-    func createImage(color: UIColor, size: CGSize) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        let path = UIBezierPath.init(rect: CGRect.init(x: 0, y: 0, width: size.width, height: size.height))
-        color.setFill()
-        path.fill()
-        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return image
     }
     
     @objc(status:) static func status(data: String) {
@@ -48,14 +39,6 @@ class ViewController: UIViewController {
     
     @objc(info:) static func info(data: String) {
         ViewController.demo?.info.text = data
-    }
-    
-    @objc(image:) static func image(data: UIImage) {
-        if(!ViewController.videoPlaying) {
-            ViewController.demo?.video.image = nil
-            return
-        }
-        ViewController.demo?.video.image = data
     }
     
     @IBAction func onRegister(_ sender: Any) {
@@ -82,15 +65,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onPlay(_ sender: Any) {
-        ViewController.videoPlaying = true
-        ViewController.demo?.video.image = nil
-        videoplayer_play(videoUrl.text)
+        if(videoPlaying) {
+            videoplayer_stop(player)
+        }
+        videoPlaying = true
+        video.image = nil
+        player = videoplayer_play(video, videoUrl.text)
     }
     
     @IBAction func onStop(_ sender: Any) {
-        ViewController.videoPlaying = false
-        videoplayer_stop()
-        ViewController.demo?.video.image = nil
+        videoPlaying = false
+        videoplayer_stop(player)
+        video.image = nil
     }
 }
 

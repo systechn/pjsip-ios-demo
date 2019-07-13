@@ -9,9 +9,9 @@
 #ifndef videoplayer_h
 #define videoplayer_h
 
-void videoplayer_init();
+#import <UIKit/UIKit.h>
 
-void videoplayer_play(const char *uri);
-void videoplayer_stop();
+void *videoplayer_play(UIImageView *view, const char *uri);
+void videoplayer_stop(void *player);
 
 #endif /* videoplayer_h */
