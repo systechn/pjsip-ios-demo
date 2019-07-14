@@ -294,7 +294,7 @@ static void videoplayer_handler(Videoplayer_t *self) {
             continue;
         } else if(self->is_restart) {
             videoplayer_close(self);
-            self->is_restart = TRUE;
+            self->is_restart = FALSE;
             if(0 != self->time_frame) {
                 sleep(1.0);
             }
