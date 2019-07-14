@@ -25,6 +25,7 @@ typedef struct Videoplayer_t {
     NSTimeInterval time_frame;
     NSTimeInterval time_start;
     NSTimeInterval time_frame_start;
+    NSTimeInterval time_frame_cache;
     
     AVPicture picture;
     AVFormatContext *format_ctx;
@@ -38,6 +39,7 @@ typedef struct Videoplayer_t {
     int stream_index;
     int frame_index;
     int frame_rate;
+    int has_cache_frame;
     NSObject<VideoPlayerHandler> *handler;
 } Videoplayer_t;
 
@@ -203,7 +205,19 @@ static void videoplayer_rendering(Videoplayer_t *self) {
                 if(self->time_frame_start+timestamp+2.0 < current_time) {
                     interval = 0;
                 }
-                NSLog(@"frame index: %d %f %f", self->frame_index, current_time-self->time_frame_start-timestamp, interval);
+                
+                if(self->has_cache_frame) {
+                    if(self->time_frame_cache == 0 || self->time_frame_cache+1.0/self->frame_rate > current_time) {
+                        interval = 0;
+                        NSLog(@"cache frame index: %d %f %f", self->frame_index, current_time-self->time_frame_start-timestamp, interval);
+                    } else {
+                        self->has_cache_frame = FALSE;
+                        self->time_frame_start = current_time - timestamp;
+                    }
+                    self->time_frame_cache = current_time;
+                } else {
+                    NSLog(@"normal frame index: %d %f %f", self->frame_index, current_time-self->time_frame_start-timestamp, interval);
+                }
                 
                 if(interval > 0) {
                     [NSThread sleepForTimeInterval:interval];
@@ -214,7 +228,6 @@ static void videoplayer_rendering(Videoplayer_t *self) {
                     if(!self->is_stop) {
                         [self->handler videoPlayerHandler: image];
                     }
-//                    [self->handler messageHandlerWithData: @"hello"];
                 });
                 ++self->frame_index;
                 self->time_frame = [[NSDate date] timeIntervalSince1970];
@@ -238,9 +251,11 @@ static void videoplayer_handler(Videoplayer_t *self) {
     self->time_restart = current_time;
     self->time_frame_start = current_time;
     self->time_frame = 0;
+    self->time_frame_cache = 0;
     self->restart_count = 0;
     self->frame_index = 0;
-    self->frame_rate = 1.0;
+    self->frame_rate = 25.0;
+    self->has_cache_frame = TRUE;
     
     videoplayer_send_message(self, "videoplayer play");
     
