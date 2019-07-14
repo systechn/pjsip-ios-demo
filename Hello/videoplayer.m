@@ -40,6 +40,7 @@ typedef struct Videoplayer_t {
     int frame_index;
     int frame_rate;
     int has_cache_frame;
+    int frame_rate_exeption;
     NSObject<VideoPlayerHandler> *handler;
 } Videoplayer_t;
 
@@ -133,6 +134,16 @@ static int videoplayer_open(Videoplayer_t *self) {
     } else if(0 != self->codec_ctx->framerate.den) {
         self->frame_rate = self->codec_ctx->framerate.num/self->codec_ctx->framerate.den;
     }
+    
+    if(self->frame_rate < 1) {
+        self->frame_rate = 1;
+    }
+    
+    if(self->frame_rate > 30) {
+        self->frame_rate_exeption = TRUE;
+        self->frame_rate = 30;
+    }
+        
     NSLog(@"frame_rate %d", self->frame_rate);
     
     avpicture_alloc(&self->picture, AV_PIX_FMT_RGB24, self->width, self->height);
@@ -207,7 +218,8 @@ static void videoplayer_rendering(Videoplayer_t *self) {
                 
                 double video_timebase = av_q2d(self->stream->time_base);
                 double timestamp = self->packet.pts * video_timebase;
-                if(self->time_frame_start+timestamp+2.0 < current_time) {
+                if(!self->frame_rate_exeption
+                   && self->time_frame_start+timestamp+2.0 < current_time) {
                     interval = 0;
                 }
                 
@@ -261,6 +273,7 @@ static void videoplayer_handler(Videoplayer_t *self) {
     self->frame_index = 0;
     self->frame_rate = 5.0;
     self->has_cache_frame = TRUE;
+    self->frame_rate_exeption = FALSE;
     
     videoplayer_send_message(self, "videoplayer play");
     
