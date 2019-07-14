@@ -210,7 +210,7 @@ static void videoplayer_rendering(Videoplayer_t *self) {
                 }
                 
                 dispatch_queue_t queue = dispatch_get_main_queue();
-                dispatch_async(queue, ^{
+                dispatch_sync(queue, ^{
                     if(!self->is_stop) {
                         [self->handler videoPlayerHandler: image];
                     }
