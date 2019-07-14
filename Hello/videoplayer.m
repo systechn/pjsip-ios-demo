@@ -114,12 +114,8 @@ static int videoplayer_open(Videoplayer_t *self) {
     }
     
     self->stream = self->format_ctx->streams[self->stream_index];
-    if(0 != self->stream->avg_frame_rate.den) {
-        self->frame_rate = self->stream->avg_frame_rate.num/self->stream->avg_frame_rate.den;
-    }
-    NSLog(@"frame_rate %d", self->frame_rate);
-    
-    self->codec_ctx = self->format_ctx->streams[self->stream_index]->codec;
+
+    self->codec_ctx = self->stream->codec;
     self->width = self->codec_ctx->width;
     self->height = self->codec_ctx->height;
     
@@ -129,6 +125,15 @@ static int videoplayer_open(Videoplayer_t *self) {
         NSLog(@"invalid size width: %d, height: %d", self->width, self->height);
         return -1;
     }
+    
+    if(0 != self->stream->avg_frame_rate.den) {
+        self->frame_rate = self->stream->avg_frame_rate.num/self->stream->avg_frame_rate.den;
+    } else if(0 != self->stream->r_frame_rate.den) {
+        self->frame_rate = self->stream->r_frame_rate.num/self->stream->r_frame_rate.den;
+    } else if(0 != self->codec_ctx->framerate.den) {
+        self->frame_rate = self->codec_ctx->framerate.num/self->codec_ctx->framerate.den;
+    }
+    NSLog(@"frame_rate %d", self->frame_rate);
     
     avpicture_alloc(&self->picture, AV_PIX_FMT_RGB24, self->width, self->height);
     
@@ -254,7 +259,7 @@ static void videoplayer_handler(Videoplayer_t *self) {
     self->time_frame_cache = 0;
     self->restart_count = 0;
     self->frame_index = 0;
-    self->frame_rate = 25.0;
+    self->frame_rate = 5.0;
     self->has_cache_frame = TRUE;
     
     videoplayer_send_message(self, "videoplayer play");
