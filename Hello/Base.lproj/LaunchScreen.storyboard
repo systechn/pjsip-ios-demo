@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,23 +13,22 @@
         <scene sceneID="EHf-IW-A2E">
             <objects>
                 <viewController wantsFullScreenLayout="YES" id="01J-lp-oVM" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="bg_qidong" translatesAutoresizingMaskIntoConstraints="NO" id="2ic-Gz-onX">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="bg_qidong" translatesAutoresizingMaskIntoConstraints="NO" id="2ic-Gz-onX">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2ic-Gz-onX" secondAttribute="bottom" id="0y6-QE-MhO"/>
-                            <constraint firstItem="2ic-Gz-onX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5fV-7B-0su"/>
-                            <constraint firstItem="2ic-Gz-onX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Eux-D6-V3K"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2ic-Gz-onX" secondAttribute="trailing" id="nuK-Kl-LqL"/>
+                            <constraint firstAttribute="bottom" secondItem="2ic-Gz-onX" secondAttribute="bottom" id="Hhm-oK-37F"/>
+                            <constraint firstItem="2ic-Gz-onX" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Qfn-9q-IHE"/>
+                            <constraint firstItem="2ic-Gz-onX" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" id="XLZ-Pq-UaC"/>
+                            <constraint firstItem="2ic-Gz-onX" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="wGs-WK-DnQ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>

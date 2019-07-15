@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9408580522DC6EA700AC3D87 /* SigninView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9408580422DC6EA700AC3D87 /* SigninView.xib */; };
 		9408580722DC75C400AC3D87 /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408580622DC75C400AC3D87 /* SigninView.swift */; };
-		9408580D22DC9CC700AC3D87 /* Hello.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9408580C22DC9CC700AC3D87 /* Hello.storyboard */; };
 		CE66891A22D08CC200C61892 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66891322D08CC100C61892 /* libavcodec.a */; };
 		CE66891B22D08CC200C61892 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66891422D08CC100C61892 /* libavfilter.a */; };
 		CE66891C22D08CC200C61892 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66891522D08CC100C61892 /* libavformat.a */; };
@@ -59,7 +58,6 @@
 /* Begin PBXFileReference section */
 		9408580422DC6EA700AC3D87 /* SigninView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SigninView.xib; sourceTree = "<group>"; };
 		9408580622DC75C400AC3D87 /* SigninView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninView.swift; sourceTree = "<group>"; };
-		9408580C22DC9CC700AC3D87 /* Hello.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Hello.storyboard; sourceTree = "<group>"; };
 		CE66891322D08CC100C61892 /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavcodec.a; path = "FFmpeg-iOS/lib/libavcodec.a"; sourceTree = "<group>"; };
 		CE66891422D08CC100C61892 /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavfilter.a; path = "FFmpeg-iOS/lib/libavfilter.a"; sourceTree = "<group>"; };
 		CE66891522D08CC100C61892 /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavformat.a; path = "FFmpeg-iOS/lib/libavformat.a"; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 				CE868FDE22D9E1A3007F9F16 /* VoipManager.swift */,
 				9408580422DC6EA700AC3D87 /* SigninView.xib */,
 				9408580622DC75C400AC3D87 /* SigninView.swift */,
-				9408580C22DC9CC700AC3D87 /* Hello.storyboard */,
 			);
 			path = Hello;
 			sourceTree = "<group>";
@@ -304,7 +301,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CECD15C722CF6431007D3497 /* LaunchScreen.storyboard in Resources */,
-				9408580D22DC9CC700AC3D87 /* Hello.storyboard in Resources */,
 				CECD15C422CF6431007D3497 /* Assets.xcassets in Resources */,
 				9408580522DC6EA700AC3D87 /* SigninView.xib in Resources */,
 				CECD15C222CF6430007D3497 /* Main.storyboard in Resources */,
