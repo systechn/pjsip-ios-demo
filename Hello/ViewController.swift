@@ -31,6 +31,7 @@ class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         VoipManager.addCallback(callback: self)
+//        self.contentView.layer.contents = UIImage(named: "bg_qidong")?.cgImage
     }
     
     override func viewDidDisappear(_ animated: Bool) {
