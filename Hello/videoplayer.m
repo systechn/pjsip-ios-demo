@@ -14,6 +14,7 @@
 #include "libavfilter/avfilter.h"
 #include "libswscale/swscale.h"
 #include "libavutil/frame.h"
+#include "tcpclient.h"
 
 typedef struct Videoplayer_t {
     int is_restart;
@@ -325,6 +326,7 @@ void *videoplayer_play(NSObject *handler, const char *uri) {
     sprintf(self->uri, "%s", uri);
     dispatch_queue_t queue = dispatch_queue_create("systec.Hello.videoplayer", DISPATCH_QUEUE_SERIAL);
     dispatch_async(queue, ^{
+        tcpclient_hello();
         NSLog(@"videoplayer_play %s", self->uri);
         videoplayer_handler(self);
     });

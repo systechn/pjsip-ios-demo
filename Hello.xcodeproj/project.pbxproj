@@ -53,6 +53,7 @@
 		CECD15FB22CF6534007D3497 /* libpjsip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15E622CF6534007D3497 /* libpjsip.a */; };
 		CECD15FC22CF6534007D3497 /* libpjmedia-codec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECD15E722CF6534007D3497 /* libpjmedia-codec.a */; };
 		CECD15FF22CF65DF007D3497 /* voip.m in Sources */ = {isa = PBXBuildFile; fileRef = CECD15FE22CF65DF007D3497 /* voip.m */; };
+		CED1B6392301921500D89688 /* tcpclient.m in Sources */ = {isa = PBXBuildFile; fileRef = CED1B6382301921500D89688 /* tcpclient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +108,8 @@
 		CECD15FD22CF65DF007D3497 /* Hello-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hello-Bridging-Header.h"; sourceTree = "<group>"; };
 		CECD15FE22CF65DF007D3497 /* voip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = voip.m; sourceTree = "<group>"; };
 		CECD160022CF65FA007D3497 /* voip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = voip.h; sourceTree = "<group>"; };
+		CED1B6382301921500D89688 /* tcpclient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tcpclient.m; sourceTree = "<group>"; };
+		CED1B63A230197C200D89688 /* tcpclient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tcpclient.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +193,8 @@
 				CE868FDE22D9E1A3007F9F16 /* VoipManager.swift */,
 				9408580422DC6EA700AC3D87 /* SigninView.xib */,
 				9408580622DC75C400AC3D87 /* SigninView.swift */,
+				CED1B6382301921500D89688 /* tcpclient.m */,
+				CED1B63A230197C200D89688 /* tcpclient.h */,
 			);
 			path = Hello;
 			sourceTree = "<group>";
@@ -318,6 +323,7 @@
 				CECD15FF22CF65DF007D3497 /* voip.m in Sources */,
 				CE868FDB22D9CBB9007F9F16 /* MessageHandler.swift in Sources */,
 				CECD15BF22CF6430007D3497 /* ViewController.swift in Sources */,
+				CED1B6392301921500D89688 /* tcpclient.m in Sources */,
 				CECD15BD22CF6430007D3497 /* AppDelegate.swift in Sources */,
 				9408580722DC75C400AC3D87 /* SigninView.swift in Sources */,
 				CE868FDF22D9E1A3007F9F16 /* VoipManager.swift in Sources */,
@@ -479,6 +485,7 @@
 					"$(PROJECT_DIR)/FFmpeg-iOS/include",
 				);
 				INFOPLIST_FILE = Hello/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -512,6 +519,7 @@
 					"$(PROJECT_DIR)/FFmpeg-iOS/include",
 				);
 				INFOPLIST_FILE = Hello/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

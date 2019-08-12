@@ -117,7 +117,7 @@
                                                     <action selector="onCall:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dbh-31-34c"/>
                                                 </connections>
                                             </button>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="rtmp://hk.systec-pbx.net/live/knHB1UhB5BekDAjMQPD2ke0VFFoL12c1" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O1s-D6-8OJ">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="rtmp://hk.systec-pbx.net/live/AuXSW7e4uAgi_ehSm4U0PQxt--PH9Gdl" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O1s-D6-8OJ">
                                                 <rect key="frame" x="3" y="431" width="408" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
