@@ -9,6 +9,43 @@
 import UIKit
 import HandyJSON
 
+enum Logger {
+    case info
+    case success
+    case error
+    case warning
+}
+
+func currentTime() -> String {
+    let dateformatter = DateFormatter()
+    dateformatter.dateFormat = "YYYY-MM-dd HH:mm:ss.SSS"
+    return dateformatter.string(from: Date())
+}
+
+extension Logger {
+    static func cat<T>(_ message: T, time: String = currentTime(), file: String = #file, method: String = #function, line: Int = #line) {
+        self.info.cat(message)
+    }
+    
+    func cat<T>(_ message: T, time: String = currentTime(), file: String = #file, method: String = #function, line: Int = #line) {
+        
+        #if DEBUG
+        var log: String
+        switch self {
+        case .info:
+            log = " ☕️ " + "\(message)"
+        case .success:
+            log = " 🍺 " + "\(message)"
+        case .error:
+            log = " ❌ " + "\(message)"
+        case .warning:
+            log = " ⚠️ " + "\(message)"
+        }
+        print("\(time) \((file as NSString).lastPathComponent)[\(line)]\(log)")
+        #endif
+    }
+}
+
 class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
 
     @IBOutlet weak var domain: UITextField!
@@ -107,13 +144,14 @@ class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
                 "114.116.109.114",
                 "/api/code",
                 "{\"user_id\":\"0000000000000010\",\"server\":\"sg.systec-pbx.net\"}"
-            );
+                ) ?? ""
             DispatchQueue.main.async {
-//                NSLog("%@", data)
                 let a_data = Message.deserialize(from: data)
-                print(a_data!.code!, a_data!.message!)
-                self.tcpClientData.text.append("\(data)\n")
-                self.tcpClientData.scrollRangeToVisible(NSRange.init(location: self.tcpClientData.text.count, length: 1))
+                if(nil != a_data) {
+                    Logger.info.cat("\(a_data?.code ?? -1), \(a_data?.message ?? "nil")")
+                    self.tcpClientData.text.append("\(data)\n")
+                    self.tcpClientData.scrollRangeToVisible(NSRange.init(location: self.tcpClientData.text.count, length: 1))
+                }
             }
         }
     }
