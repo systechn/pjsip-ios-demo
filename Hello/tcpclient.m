@@ -33,7 +33,12 @@ enum {
 
 #define MAX_BUF_SIZE 1024
 
+static void sig_handler(int no) {
+    return;
+}
+
 int tcpclient_hello() {
+    signal(SIGPIPE, sig_handler);
     const char *host = "114.116.109.114";
     const char *api = "/api/location";
     
@@ -109,7 +114,7 @@ int tcpclient_hello() {
         return -1;
     }
     
-    rc = write(cfd, buf, rc);
+    rc = (int)write(cfd, buf, rc);
     
     if(rc <= 0) {
         close(cfd);
@@ -130,7 +135,7 @@ int tcpclient_hello() {
         syslog_wrapper (LOG_ERROR, "select");
         return -1;
     } else {
-        rc = read(cfd, buf, sizeof(buf)-1);
+        rc = (int)read(cfd, buf, sizeof(buf)-1);
         if(rc > 0) {
             buf[rc] = '\0';
             syslog_wrapper (LOG_INFO, "ok: %s", buf);
