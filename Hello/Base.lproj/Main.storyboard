@@ -15,14 +15,14 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Hello" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="1300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9xr-0b-zWK">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="1222"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7il-Eo-q8I">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1200"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VoIP Info" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTr-L3-nbd">
                                                 <rect key="frame" x="3" y="10" width="408" height="25"/>
@@ -42,7 +42,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="hk.systec-pbx.net" borderStyle="roundedRect" placeholder="domain" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vOm-IL-xhz">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="sg.systec-pbx.net" borderStyle="roundedRect" placeholder="domain" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vOm-IL-xhz">
                                                 <rect key="frame" x="3" y="131" width="408" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -52,7 +52,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0000000000000206" borderStyle="roundedRect" placeholder="sip id" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dmm-9l-9qi">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="000000000000000C" borderStyle="roundedRect" placeholder="sip id" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dmm-9l-9qi">
                                                 <rect key="frame" x="3" y="181" width="408" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -62,7 +62,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="730353" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yCK-9d-Nvo">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="nJfmZ5" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yCK-9d-Nvo">
                                                 <rect key="frame" x="3" y="231" width="408" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -100,7 +100,7 @@
                                                     <action selector="onAnswer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zOw-LU-gMY"/>
                                                 </connections>
                                             </button>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="sip:000000@hk.systec-pbx.net" borderStyle="roundedRect" placeholder="uri" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7vS-WZ-vCe">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="sip:000000@sg.systec-pbx.net" borderStyle="roundedRect" placeholder="uri" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7vS-WZ-vCe">
                                                 <rect key="frame" x="3" y="331" width="408" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -153,12 +153,29 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fmw-F7-6sD">
+                                                <rect key="frame" x="172.5" y="837" width="69" height="30"/>
+                                                <state key="normal" title="Tcp Client"/>
+                                                <connections>
+                                                    <action selector="onTcpClient:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AJs-ql-idq"/>
+                                                </connections>
+                                            </button>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uH9-Zo-bfW">
+                                                <rect key="frame" x="3" y="885" width="408" height="128"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="128" id="XyU-eQ-BoQ"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="utS-lT-ZIM" firstAttribute="leading" secondItem="z6E-0b-FP3" secondAttribute="trailing" constant="10" id="6U8-8W-JIy"/>
                                             <constraint firstItem="vOm-IL-xhz" firstAttribute="leading" secondItem="7il-Eo-q8I" secondAttribute="leading" constant="3" id="8Tg-eK-iQC"/>
                                             <constraint firstItem="yCK-9d-Nvo" firstAttribute="leading" secondItem="7il-Eo-q8I" secondAttribute="leading" constant="3" id="991-vT-PiE"/>
+                                            <constraint firstItem="fmw-F7-6sD" firstAttribute="centerX" secondItem="7il-Eo-q8I" secondAttribute="centerX" id="CBb-e7-mn4"/>
                                             <constraint firstItem="hGS-tp-ZTR" firstAttribute="leading" secondItem="7il-Eo-q8I" secondAttribute="leading" constant="3" id="EFR-bv-fNx"/>
                                             <constraint firstAttribute="trailing" secondItem="gmW-oB-NjT" secondAttribute="trailing" constant="3" id="ELH-vR-qT5"/>
                                             <constraint firstItem="av0-83-DZf" firstAttribute="centerX" secondItem="7il-Eo-q8I" secondAttribute="centerX" constant="50" id="Evr-qw-vSb"/>
@@ -168,17 +185,20 @@
                                             <constraint firstItem="5CI-Dg-0Cr" firstAttribute="top" secondItem="yCK-9d-Nvo" secondAttribute="bottom" constant="20" id="JVr-eO-Oop"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5CI-Dg-0Cr" secondAttribute="trailing" constant="3" id="MSX-Iw-ebC"/>
                                             <constraint firstAttribute="trailing" secondItem="yCK-9d-Nvo" secondAttribute="trailing" constant="3" id="NiF-qp-CmJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="uH9-Zo-bfW" secondAttribute="trailing" constant="3" id="Nlp-Un-KDu"/>
                                             <constraint firstItem="O1s-D6-8OJ" firstAttribute="top" secondItem="52c-wz-Wab" secondAttribute="bottom" constant="20" id="OqY-g6-y7H"/>
-                                            <constraint firstAttribute="height" constant="896" id="PnF-OO-7aD"/>
+                                            <constraint firstAttribute="height" constant="1200" id="PnF-OO-7aD"/>
                                             <constraint firstItem="yt6-ho-y7g" firstAttribute="centerX" secondItem="7il-Eo-q8I" secondAttribute="centerX" constant="-50" id="Pwa-ja-UP1"/>
                                             <constraint firstItem="gmW-oB-NjT" firstAttribute="leading" secondItem="7il-Eo-q8I" secondAttribute="leading" constant="3" id="PyC-hk-ExK"/>
                                             <constraint firstItem="O1s-D6-8OJ" firstAttribute="leading" secondItem="7il-Eo-q8I" secondAttribute="leading" constant="3" id="PzY-Az-el5"/>
                                             <constraint firstAttribute="trailing" secondItem="7vS-WZ-vCe" secondAttribute="trailing" constant="3" id="SBO-Dd-k2o"/>
                                             <constraint firstItem="utS-lT-ZIM" firstAttribute="centerX" secondItem="7il-Eo-q8I" secondAttribute="centerX" constant="-40" id="Ssv-oW-xPx"/>
+                                            <constraint firstItem="uH9-Zo-bfW" firstAttribute="top" secondItem="fmw-F7-6sD" secondAttribute="bottom" constant="18" id="Tt9-Gm-8hT"/>
                                             <constraint firstItem="yt6-ho-y7g" firstAttribute="top" secondItem="O1s-D6-8OJ" secondAttribute="bottom" constant="20" id="Vpa-Lh-97R"/>
                                             <constraint firstAttribute="trailing" secondItem="GTr-L3-nbd" secondAttribute="trailing" constant="3" id="VxT-ET-7Ke"/>
                                             <constraint firstItem="ns6-a4-jYe" firstAttribute="leading" secondItem="7il-Eo-q8I" secondAttribute="leading" constant="3" id="X65-k6-cUq"/>
                                             <constraint firstItem="av0-83-DZf" firstAttribute="top" secondItem="O1s-D6-8OJ" secondAttribute="bottom" constant="20" id="a8W-Rw-PcK"/>
+                                            <constraint firstItem="uH9-Zo-bfW" firstAttribute="leading" secondItem="7il-Eo-q8I" secondAttribute="leading" constant="3" id="aNv-ev-SCQ"/>
                                             <constraint firstItem="vOm-IL-xhz" firstAttribute="top" secondItem="hGS-tp-ZTR" secondAttribute="bottom" constant="20" id="ank-Fm-IlM"/>
                                             <constraint firstItem="ns6-a4-jYe" firstAttribute="top" secondItem="gmW-oB-NjT" secondAttribute="bottom" constant="5" id="bVx-4M-POS"/>
                                             <constraint firstItem="Dmm-9l-9qi" firstAttribute="top" secondItem="vOm-IL-xhz" secondAttribute="bottom" constant="20" id="cF4-wo-IHR"/>
@@ -188,6 +208,7 @@
                                             <constraint firstItem="z6E-0b-FP3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7il-Eo-q8I" secondAttribute="leading" constant="3" id="hgN-kk-cjw"/>
                                             <constraint firstItem="yCK-9d-Nvo" firstAttribute="top" secondItem="Dmm-9l-9qi" secondAttribute="bottom" constant="20" id="j7Q-wy-kBR"/>
                                             <constraint firstAttribute="trailing" secondItem="ns6-a4-jYe" secondAttribute="trailing" constant="3" id="ls0-Nm-mov"/>
+                                            <constraint firstItem="fmw-F7-6sD" firstAttribute="top" secondItem="ns6-a4-jYe" secondAttribute="bottom" constant="20" id="oB6-2F-R4Q"/>
                                             <constraint firstItem="52c-wz-Wab" firstAttribute="top" secondItem="7vS-WZ-vCe" secondAttribute="bottom" constant="20" id="oKY-Q1-O7B"/>
                                             <constraint firstAttribute="trailing" secondItem="O1s-D6-8OJ" secondAttribute="trailing" constant="3" id="qId-he-5sE"/>
                                             <constraint firstItem="7vS-WZ-vCe" firstAttribute="top" secondItem="z6E-0b-FP3" secondAttribute="bottom" constant="20" id="rpO-1L-XZY"/>
@@ -223,6 +244,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <size key="freeformSize" width="414" height="1300"/>
                     <connections>
                         <outlet property="callee" destination="7vS-WZ-vCe" id="nUV-gC-1fW"/>
                         <outlet property="contentView" destination="7il-Eo-q8I" id="4cT-Mz-dhN"/>
@@ -232,6 +254,7 @@
                         <outlet property="scrollView" destination="9xr-0b-zWK" id="xkI-al-eNt"/>
                         <outlet property="sipId" destination="Dmm-9l-9qi" id="mYv-I3-2qP"/>
                         <outlet property="status" destination="hGS-tp-ZTR" id="9Uf-dE-40C"/>
+                        <outlet property="tcpClientData" destination="uH9-Zo-bfW" id="Lhj-fb-py5"/>
                         <outlet property="video" destination="gmW-oB-NjT" id="cag-SK-ZzS"/>
                         <outlet property="videoStatus" destination="ns6-a4-jYe" id="PTB-xd-jrq"/>
                         <outlet property="videoUrl" destination="O1s-D6-8OJ" id="1gS-ub-5rb"/>

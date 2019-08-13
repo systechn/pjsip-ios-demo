@@ -9,6 +9,8 @@
 #ifndef tcpclient_h
 #define tcpclient_h
 
-int tcpclient_hello();
+#import <Foundation/Foundation.h>
+
+NSString *tcpclient_hello(const char *host, const char *path, const char *body);
 
 #endif /* tcpclient_h */

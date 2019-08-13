@@ -14,6 +14,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <sys/time.h>
+#include <regex.h>
 
 enum {
     LOG_FATAL,
@@ -37,10 +38,9 @@ static void sig_handler(int no) {
     return;
 }
 
-int tcpclient_hello() {
+NSString *tcpclient_hello(const char *host, const char *path, const char *body) {
     signal(SIGPIPE, sig_handler);
-    const char *host = "114.116.109.114";
-    const char *api = "/api/location";
+    NSString *label;
     
     struct sockaddr_in s_addr;
     bzero(&s_addr, sizeof(struct sockaddr_in));
@@ -53,8 +53,8 @@ int tcpclient_hello() {
     
     int cfd = socket(AF_INET, SOCK_STREAM, 0);
     if(cfd < 0) {
-        syslog_wrapper (LOG_ERROR, "socket");
-        return -1;
+        syslog_wrapper (LOG_ERROR, "socket create fail");
+        return label;
     }
     
     int flag = fcntl(cfd, F_GETFL, 0);
@@ -70,14 +70,14 @@ int tcpclient_hello() {
     if(0 != rc) {
         if(errno != EINPROGRESS) {
             close(cfd);
-            syslog_wrapper (LOG_ERROR, "connect");
-            return -1;
+            syslog_wrapper (LOG_ERROR, "connect fail");
+            return label;
         }
         rc = select(cfd+1, &rset, &wset, NULL, &tm);
         if(rc <= 0) {
             close(cfd);
-            syslog_wrapper (LOG_ERROR, "select");
-            return -1;
+            syslog_wrapper (LOG_ERROR, "connect timeout");
+            return label;
         }
     }
     
@@ -85,10 +85,6 @@ int tcpclient_hello() {
     fcntl(cfd, F_SETFL, flag);
     
     char buf[MAX_BUF_SIZE] = "";
-    
-    const char *body = (
-        "{\"conf\":{\"image\":5},\"id\":0,\"name\":\"hh\",\"code\":0}"
-    );
     
     rc = snprintf(
         buf,
@@ -102,7 +98,7 @@ int tcpclient_hello() {
             "Content-Length: %lu\r\n\r\n"
             "%s"
         ),
-        api,
+        path,
         host,
         strlen(body),
         body
@@ -111,15 +107,15 @@ int tcpclient_hello() {
     if(rc <= 0) {
         close(cfd);
         syslog_wrapper (LOG_ERROR, "snprintf");
-        return -1;
+        return label;
     }
     
     rc = (int)write(cfd, buf, rc);
     
     if(rc <= 0) {
         close(cfd);
-        syslog_wrapper (LOG_ERROR, "write");
-        return -1;
+        syslog_wrapper (LOG_ERROR, "write fail");
+        return label;
     }
     
     FD_ZERO(&wset);
@@ -132,18 +128,30 @@ int tcpclient_hello() {
     rc = select(cfd+1, &rset, &wset, NULL, &tm);
     if(rc <= 0) {
         close(cfd);
-        syslog_wrapper (LOG_ERROR, "select");
-        return -1;
+        syslog_wrapper (LOG_ERROR, "read timeout");
+        return label;
     } else {
         rc = (int)read(cfd, buf, sizeof(buf)-1);
         if(rc > 0) {
             buf[rc] = '\0';
-            syslog_wrapper (LOG_INFO, "ok: %s", buf);
+//            syslog_wrapper (LOG_INFO, "ok: %s", buf);
+            regmatch_t pmatch[2];
+            const size_t nmatch = 2;
+            regex_t reg;
+            const char *pattern = "\r\n\r\n(.+)";
+            regcomp(&reg, pattern, REG_EXTENDED);
+            int status = regexec(&reg, buf, nmatch, pmatch, 0);
+            if (0 == status) {
+                char data[MAX_BUF_SIZE] = "";
+                snprintf(data, pmatch[1].rm_eo-pmatch[1].rm_so+1, "%s", buf + pmatch[1].rm_so);
+                label = [[NSString alloc] initWithUTF8String: data];
+            }
+            regfree(&reg);
         } else {
-            syslog_wrapper (LOG_ERROR, "read");
+            syslog_wrapper (LOG_ERROR, "read fail");
         }
     }
     
     close(cfd);
-    return rc;
+    return label;
 }

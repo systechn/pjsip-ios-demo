@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HandyJSON
 
 class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
 
@@ -22,6 +23,7 @@ class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var videoStatus: UILabel!
+    @IBOutlet weak var tcpClientData: UITextView!
     
     var videoPlaying:Bool = false
     
@@ -91,6 +93,29 @@ class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
         videoPlaying = false
         videoplayer_stop(player)
         video.image = nil
+    }
+    
+    @IBAction func onTcpClient(_ sender: Any) {
+        class Message: HandyJSON {
+            required init() {}
+            var code: Int!
+            var message: String!
+        }
+        let queue = DispatchQueue(label: "com.systec.tcpclient")
+        queue.async {
+            let data: String = tcpclient_hello(
+                "114.116.109.114",
+                "/api/code",
+                "{\"user_id\":\"0000000000000010\",\"server\":\"sg.systec-pbx.net\"}"
+            );
+            DispatchQueue.main.async {
+//                NSLog("%@", data)
+                let a_data = Message.deserialize(from: data)
+                print(a_data!.code!, a_data!.message!)
+                self.tcpClientData.text.append("\(data)\n")
+                self.tcpClientData.scrollRangeToVisible(NSRange.init(location: self.tcpClientData.text.count, length: 1))
+            }
+        }
     }
 }
 
