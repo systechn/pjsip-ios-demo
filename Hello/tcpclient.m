@@ -165,3 +165,30 @@ NSString *tcpclient_hello(const char *host, const char *path, const char *body) 
     close(cfd);
     return label;
 }
+
+// Demo
+//@IBAction func onTcpClient(_ sender: Any) {
+//    class Message: HandyJSON {
+//        required init() {}
+//        var code: Int!
+//        var message: String!
+//        var device_code: String!
+//    }
+//    let host: String = self.tcpClientHost.text ?? "10.19.11.144"
+//    let queue = DispatchQueue(label: "com.systec.tcpclient")
+//    queue.async {
+//        let data: String = tcpclient_hello(
+//                                           "\(host)",
+//                                           "/api/code",
+//                                           "{\"user_id\":\"0000000000000001\",\"server\":\"sg.systec-pbx.net\"}"
+//                                           ) ?? ""
+//        DispatchQueue.main.async {
+//            let a_data = Message.deserialize(from: data)
+//            if(nil != a_data) {
+//                Logger.info.cat("\(a_data?.code ?? -1), \(a_data?.message ?? "nil"), \(a_data?.device_code ?? "nil")")
+//                self.tcpClientData.text.append("\(data)\n")
+//                self.tcpClientData.scrollRangeToVisible(NSRange.init(location: self.tcpClientData.text.count, length: 1))
+//            }
+//        }
+//    }
+//}
