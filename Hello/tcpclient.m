@@ -34,12 +34,9 @@ enum {
 
 #define MAX_BUF_SIZE 1024
 
-static void sig_handler(int no) {
-    return;
-}
-
 NSString *tcpclient_hello(const char *host, const char *path, const char *body) {
-    signal(SIGPIPE, sig_handler);
+    signal(SIGPIPE, SIG_IGN);
+//    signal(SIGPIPE, SIG_DFL);
     NSString *label;
     
     struct sockaddr_in s_addr;
@@ -61,10 +58,10 @@ NSString *tcpclient_hello(const char *host, const char *path, const char *body) 
     flag |= O_NONBLOCK | O_CLOEXEC;
     fcntl(cfd, F_SETFL, flag);
  
-    FD_ZERO(&wset);
     FD_ZERO(&rset);
-    FD_SET(cfd, &wset);
     FD_SET(cfd, &rset);
+    FD_ZERO(&wset);
+    FD_SET(cfd, &wset);
     
     int rc = connect(cfd, (struct sockaddr*)&s_addr, sizeof(s_addr));
     if(0 != rc) {
@@ -110,22 +107,35 @@ NSString *tcpclient_hello(const char *host, const char *path, const char *body) 
         return label;
     }
     
+//    FD_ZERO(&wset);
+//    FD_SET(cfd, &wset);
+//
+//    tm.tv_sec = 3;
+//    tm.tv_usec = 0;
+//    rc = select(cfd+1, NULL, &wset, NULL, &tm);
+//    if(rc <= 0) {
+//        close(cfd);
+//        syslog_wrapper (LOG_ERROR, "write timeout");
+//        return label;
+//    } else {
+//        rc = (int)write(cfd, buf, rc);
+//        if(rc <= 0) {
+//            close(cfd);
+//            syslog_wrapper (LOG_ERROR, "write fail");
+//            return label;
+//        }
+//    }
+    
     rc = (int)write(cfd, buf, rc);
     
-    if(rc <= 0) {
-        close(cfd);
-        syslog_wrapper (LOG_ERROR, "write fail");
-        return label;
-    }
-    
-    FD_ZERO(&wset);
     FD_ZERO(&rset);
-    FD_SET(cfd, &wset);
     FD_SET(cfd, &rset);
+    FD_ZERO(&wset);
+    FD_SET(cfd, &wset);
     
     tm.tv_sec = 3;
     tm.tv_usec = 0;
-    rc = select(cfd+1, &rset, &wset, NULL, &tm);
+    rc = select(cfd+1, &rset, NULL, NULL, &tm);
     if(rc <= 0) {
         close(cfd);
         syslog_wrapper (LOG_ERROR, "read timeout");

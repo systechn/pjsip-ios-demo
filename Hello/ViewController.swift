@@ -61,6 +61,7 @@ class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var videoStatus: UILabel!
     @IBOutlet weak var tcpClientData: UITextView!
+    @IBOutlet weak var tcpClientHost: UITextField!
     
     var videoPlaying:Bool = false
     
@@ -141,9 +142,9 @@ class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
         let queue = DispatchQueue(label: "com.systec.tcpclient")
         queue.async {
             let data: String = tcpclient_hello(
-                "114.116.109.114",
+                "\(self.tcpClientHost.text ?? "114.116.109.114")",
                 "/api/code",
-                "{\"user_id\":\"0000000000000010\",\"server\":\"sg.systec-pbx.net\"}"
+                "{\"user_id\":\"0000000000000001\",\"server\":\"sg.systec-pbx.net\"}"
                 ) ?? ""
             DispatchQueue.main.async {
                 let a_data = Message.deserialize(from: data)
