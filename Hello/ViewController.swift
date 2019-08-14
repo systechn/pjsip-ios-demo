@@ -46,7 +46,7 @@ extension Logger {
     }
 }
 
-class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
+class ViewController: UIViewController, UITextFieldDelegate, VoipHandler, VideoPlayerHandler {
 
     @IBOutlet weak var domain: UITextField!
     @IBOutlet weak var sipId: UITextField!
@@ -73,10 +73,20 @@ class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
         VoipManager.addCallback(callback: self)
         self.view.layer.contents = UIImage(named: "bg_qidong")?.cgImage
         self.view.layer.contentsGravity = CALayerContentsGravity.resizeAspectFill;
+//        self.tcpClientHost.clearButtonMode = .whileEditing
+//        self.view.endEditing(true)
+//        UIApplication.shared.keyWindow?.endEditing(true)
+//        self.contentView.endEditing(true)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         VoipManager.removeCallback(callback: self)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        self.view.endEditing(true)
+//        UIApplication.shared.keyWindow?.endEditing(true)
+//        print("+++++++++++")
     }
     
     func voipHandler(action: Int, data: String) {
@@ -128,9 +138,11 @@ class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
     }
     
     @IBAction func onStop(_ sender: Any) {
-        videoPlaying = false
-        videoplayer_stop(player)
+        if(videoPlaying) {
+            videoplayer_stop(player)
+        }
         video.image = nil
+        videoPlaying = false
     }
     
     @IBAction func onTcpClient(_ sender: Any) {
@@ -157,6 +169,11 @@ class ViewController: UIViewController, VoipHandler, VideoPlayerHandler {
                 }
             }
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
