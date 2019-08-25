@@ -71,7 +71,7 @@ class ViewController: UIViewController, UITextFieldDelegate, VoipHandler, VideoP
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         VoipManager.addCallback(callback: self)
-        self.view.layer.contents = UIImage(named: "launch")?.cgImage
+        self.view.layer.contents = UIImage(named: "bg")?.cgImage
         self.view.layer.contentsGravity = CALayerContentsGravity.resizeAspectFill;
 //        self.tcpClientHost.clearButtonMode = .whileEditing
 //        self.view.endEditing(true)
