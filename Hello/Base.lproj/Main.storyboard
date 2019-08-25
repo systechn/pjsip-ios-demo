@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="1222"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7il-Eo-q8I">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1183"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1200"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VoIP Info" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTr-L3-nbd">
                                                 <rect key="frame" x="3" y="10" width="408" height="25"/>
@@ -42,7 +42,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="hk.systec-pbx.net" borderStyle="roundedRect" placeholder="domain" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vOm-IL-xhz">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="tj.systec-pbx.net" borderStyle="roundedRect" placeholder="domain" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vOm-IL-xhz">
                                                 <rect key="frame" x="3" y="131" width="408" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -55,7 +55,7 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="L84-1I-IsJ"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="000000000000034C" borderStyle="roundedRect" placeholder="sip id" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Dmm-9l-9qi">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="00000000000000C6" borderStyle="roundedRect" placeholder="sip id" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Dmm-9l-9qi">
                                                 <rect key="frame" x="3" y="181" width="408" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -68,7 +68,7 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="WBt-Jc-chX"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="aKz1e0" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yCK-9d-Nvo">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="XMsJ3K" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yCK-9d-Nvo">
                                                 <rect key="frame" x="3" y="231" width="408" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -109,7 +109,7 @@
                                                     <action selector="onAnswer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zOw-LU-gMY"/>
                                                 </connections>
                                             </button>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="sip:000000@hk.systec-pbx.net" borderStyle="roundedRect" placeholder="uri" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7vS-WZ-vCe">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="sip:000000@tj.systec-pbx.net" borderStyle="roundedRect" placeholder="uri" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7vS-WZ-vCe">
                                                 <rect key="frame" x="3" y="331" width="408" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -194,6 +194,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstAttribute="width" secondItem="7il-Eo-q8I" secondAttribute="height" multiplier="70:200" priority="750" id="218-PZ-DXl"/>
                                             <constraint firstItem="utS-lT-ZIM" firstAttribute="leading" secondItem="z6E-0b-FP3" secondAttribute="trailing" constant="10" id="6U8-8W-JIy"/>
                                             <constraint firstItem="vOm-IL-xhz" firstAttribute="leading" secondItem="7il-Eo-q8I" secondAttribute="leading" constant="3" id="8Tg-eK-iQC"/>
                                             <constraint firstItem="yCK-9d-Nvo" firstAttribute="leading" secondItem="7il-Eo-q8I" secondAttribute="leading" constant="3" id="991-vT-PiE"/>
@@ -206,7 +207,6 @@
                                             <constraint firstItem="gmW-oB-NjT" firstAttribute="top" secondItem="yt6-ho-y7g" secondAttribute="bottom" constant="20" id="Gtb-Xa-bbr"/>
                                             <constraint firstAttribute="trailing" secondItem="vOm-IL-xhz" secondAttribute="trailing" constant="3" id="JJ5-gt-Uzf"/>
                                             <constraint firstItem="5CI-Dg-0Cr" firstAttribute="top" secondItem="yCK-9d-Nvo" secondAttribute="bottom" constant="20" id="JVr-eO-Oop"/>
-                                            <constraint firstAttribute="width" secondItem="7il-Eo-q8I" secondAttribute="height" multiplier="70:200" id="LNA-fa-QBu"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5CI-Dg-0Cr" secondAttribute="trailing" constant="3" id="MSX-Iw-ebC"/>
                                             <constraint firstAttribute="trailing" secondItem="yCK-9d-Nvo" secondAttribute="trailing" constant="3" id="NiF-qp-CmJ"/>
                                             <constraint firstAttribute="trailing" secondItem="uH9-Zo-bfW" secondAttribute="trailing" constant="3" id="Nlp-Un-KDu"/>
@@ -243,6 +243,7 @@
                                             <constraint firstItem="5CI-Dg-0Cr" firstAttribute="leading" secondItem="mO1-Gr-p5a" secondAttribute="trailing" constant="10" id="tox-rm-POI"/>
                                             <constraint firstItem="mO1-Gr-p5a" firstAttribute="centerX" secondItem="7il-Eo-q8I" secondAttribute="centerX" constant="40" id="wyv-xb-odL"/>
                                             <constraint firstItem="z6E-0b-FP3" firstAttribute="top" secondItem="yCK-9d-Nvo" secondAttribute="bottom" constant="20" id="xMl-gg-eEF"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="1200" id="xtF-Yt-csd"/>
                                             <constraint firstItem="dFw-nA-X2d" firstAttribute="top" secondItem="fmw-F7-6sD" secondAttribute="bottom" constant="15" id="yvC-QA-KV4"/>
                                             <constraint firstItem="GTr-L3-nbd" firstAttribute="leading" secondItem="7il-Eo-q8I" secondAttribute="leading" constant="3" id="yyw-6G-ECD"/>
                                             <constraint firstItem="utS-lT-ZIM" firstAttribute="top" secondItem="yCK-9d-Nvo" secondAttribute="bottom" constant="20" id="zv9-bg-bOF"/>
