@@ -55,7 +55,7 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="L84-1I-IsJ"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="00000000000000C6" borderStyle="roundedRect" placeholder="sip id" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Dmm-9l-9qi">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="000000000000010F" borderStyle="roundedRect" placeholder="sip id" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Dmm-9l-9qi">
                                                 <rect key="frame" x="3" y="181" width="408" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -68,7 +68,7 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="WBt-Jc-chX"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="XMsJ3K" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yCK-9d-Nvo">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BjIfjZ" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yCK-9d-Nvo">
                                                 <rect key="frame" x="3" y="231" width="408" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -129,7 +129,7 @@
                                                     <action selector="onCall:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dbh-31-34c"/>
                                                 </connections>
                                             </button>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="rtmp://rtmp.tj.systec-pbx.net/live/JPv3Wunwe_TkRgtvuEA58WoynGRNgPKG" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O1s-D6-8OJ">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="rtmp://rtmp.tj.systec-pbx.net/live/xCSj7TDFrUaxWIvLsSKBUIkpr21Jm-Ww" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O1s-D6-8OJ">
                                                 <rect key="frame" x="3" y="431" width="408" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>

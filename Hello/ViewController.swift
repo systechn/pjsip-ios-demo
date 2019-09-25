@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import HandyJSON
+//import HandyJSON
 
 enum Logger {
     case info
@@ -146,12 +146,13 @@ class ViewController: UIViewController, UITextFieldDelegate, VoipHandler, VideoP
     }
     
     @IBAction func onTcpClient(_ sender: Any) {
-        class Message: HandyJSON {
-            required init() {}
-            var code: Int!
-            var message: String!
-            var device_code: String!
+
+        struct Message: Codable {
+            var code: Int
+            var message: String
+            var device_code: String
         }
+        
         let host: String = self.tcpClientHost.text ?? "10.19.11.144"
         let queue = DispatchQueue(label: "com.systec.tcpclient")
         queue.async {
@@ -161,11 +162,14 @@ class ViewController: UIViewController, UITextFieldDelegate, VoipHandler, VideoP
                 "{\"user_id\":\"0000000000000001\",\"server\":\"sg.systec-pbx.net\"}"
                 ) ?? ""
             DispatchQueue.main.async {
-                let a_data = Message.deserialize(from: data)
-                if(nil != a_data) {
-                    Logger.info.cat("\(a_data?.code ?? -1), \(a_data?.message ?? "nil"), \(a_data?.device_code ?? "nil")")
-                    self.tcpClientData.text.append("\(data)\n")
-                    self.tcpClientData.scrollRangeToVisible(NSRange.init(location: self.tcpClientData.text.count, length: 1))
+                do {
+                    let decoder = JSONDecoder()
+                    let a_data = try decoder.decode(Message.self, from: data.data(using: .utf8)!)
+                    Logger.info.cat("\(a_data.code ), \(a_data.message ), \(a_data.device_code )")
+                        self.tcpClientData.text.append("\(data)\n")
+                        self.tcpClientData.scrollRangeToVisible(NSRange.init(location: self.tcpClientData.text.count, length: 1))
+                } catch {
+                    print(error)
                 }
             }
         }
