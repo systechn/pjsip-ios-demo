@@ -22,6 +22,7 @@ typedef struct Voip_t {
     pjsua_acc_id acc_id;
     pjsua_call_id call_id;
     pjsua_call_id call_id_out;
+    pjsua_transport_id utid;
 } Voip_t;
 
 static Voip_t *self;
@@ -101,8 +102,14 @@ static void on_reg_state(pjsua_acc_id acc_id) {
 int voip_account_update(const char *domain, const char *user, const char *passwd) {
     pj_status_t status;
     
+    status = pjsua_transport_restart(self->utid, 0);
+//    PJ_LOG(3,(THIS_FILE, "+++3 %u %u %u", status, PJ_EINVAL, PJ_SUCCESS));
+    
     pjsua_acc_config cfg;
     pjsua_acc_config_default(&cfg);
+    
+    cfg.transport_id = self->utid;
+    
     char sip_id[128] = "";
     sprintf(sip_id, "sip:%s@%s", user, domain);
     cfg.id = pj_str(sip_id);
@@ -184,6 +191,7 @@ void voip_start(unsigned port) {
     
     pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transport_cfg, &utid);
     // pjsua_transport_create(PJSIP_TRANSPORT_TCP, &transportConfig, NULL);
+    self->utid = utid;
     
     pjsua_start();
     
