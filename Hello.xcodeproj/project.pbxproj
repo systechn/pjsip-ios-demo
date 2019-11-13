@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9408580522DC6EA700AC3D87 /* SigninView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9408580422DC6EA700AC3D87 /* SigninView.xib */; };
 		9408580722DC75C400AC3D87 /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9408580622DC75C400AC3D87 /* SigninView.swift */; };
+		94122399237BFB92001BFFCA /* discovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 94122398237BFB92001BFFCA /* discovery.m */; };
 		CE66891A22D08CC200C61892 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66891322D08CC100C61892 /* libavcodec.a */; };
 		CE66891B22D08CC200C61892 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66891422D08CC100C61892 /* libavfilter.a */; };
 		CE66891C22D08CC200C61892 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE66891522D08CC100C61892 /* libavformat.a */; };
@@ -59,6 +60,8 @@
 /* Begin PBXFileReference section */
 		9408580422DC6EA700AC3D87 /* SigninView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SigninView.xib; sourceTree = "<group>"; };
 		9408580622DC75C400AC3D87 /* SigninView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninView.swift; sourceTree = "<group>"; };
+		94122398237BFB92001BFFCA /* discovery.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = discovery.m; sourceTree = "<group>"; };
+		9412239A237C013D001BFFCA /* discovery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = discovery.h; sourceTree = "<group>"; };
 		CE66891322D08CC100C61892 /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavcodec.a; path = "FFmpeg-iOS/lib/libavcodec.a"; sourceTree = "<group>"; };
 		CE66891422D08CC100C61892 /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavfilter.a; path = "FFmpeg-iOS/lib/libavfilter.a"; sourceTree = "<group>"; };
 		CE66891522D08CC100C61892 /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavformat.a; path = "FFmpeg-iOS/lib/libavformat.a"; sourceTree = "<group>"; };
@@ -195,6 +198,8 @@
 				9408580622DC75C400AC3D87 /* SigninView.swift */,
 				CED1B6382301921500D89688 /* tcpclient.m */,
 				CED1B63A230197C200D89688 /* tcpclient.h */,
+				94122398237BFB92001BFFCA /* discovery.m */,
+				9412239A237C013D001BFFCA /* discovery.h */,
 			);
 			path = Hello;
 			sourceTree = "<group>";
@@ -323,6 +328,7 @@
 				CECD15FF22CF65DF007D3497 /* voip.m in Sources */,
 				CE868FDB22D9CBB9007F9F16 /* MessageHandler.swift in Sources */,
 				CECD15BF22CF6430007D3497 /* ViewController.swift in Sources */,
+				94122399237BFB92001BFFCA /* discovery.m in Sources */,
 				CED1B6392301921500D89688 /* tcpclient.m in Sources */,
 				CECD15BD22CF6430007D3497 /* AppDelegate.swift in Sources */,
 				9408580722DC75C400AC3D87 /* SigninView.swift in Sources */,

@@ -156,6 +156,7 @@ class ViewController: UIViewController, UITextFieldDelegate, VoipHandler, VideoP
         let host: String = self.tcpClientHost.text ?? "10.19.11.144"
         let queue = DispatchQueue(label: "com.systec.tcpclient")
         queue.async {
+            discovery_test(0, nil)
             let data: String = tcpclient_hello(
                 "\(host)",
                 "/api/code",
